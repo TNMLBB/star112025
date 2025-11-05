@@ -100,13 +100,14 @@
         /* Estilo Específico para el Logo del Patrocinador (Izquierda) */
         #sponsor-logo-container {
             left: 20px;
-            /* La inversión de colores se mantiene para logos oscuros, pero se ajusta el color del hover */
-            filter: invert(100%) grayscale(100%) brightness(0.7); 
+            /* Se eliminan los filtros para mantener los colores originales */
+            filter: none; 
+            opacity: 0.85; /* Opacidad sutil para que el hover se note más */
         }
         #sponsor-logo-container:hover {
-            /* AJUSTE: Sombra de hover ahora usa el color primario (Amarillo) */
-            filter: invert(100%) grayscale(0%) brightness(1) drop-shadow(0 0 10px var(--primary-neon-green)); 
-            opacity: 1;
+            /* Nuevo efecto de sombra negra para resaltar, manteniendo los colores originales */
+            filter: drop-shadow(0 0 10px var(--base-black)); 
+            opacity: 1; /* Opacidad completa */
             transform: scale(1.05);
         }
         /* --- END FLOTATING LOGO STYLES (COMMON) --- */
@@ -295,6 +296,18 @@
         .music-btn:hover {
             filter: brightness(1.2);
         }
+
+        /* ESTILO PARA LA IMAGEN DEL PREMIO (DENTRO DE LA TARJETA) */
+        .prize-image-inline {
+            width: 80px; /* Ajusta este valor para el tamaño deseado */
+            height: auto;
+            margin-left: 0.75rem; /* Espacio a la izquierda del texto */
+            vertical-align: middle; /* Alinea la imagen verticalmente con el texto */
+            border-radius: 0.25rem;
+            border: 1px solid var(--primary-neon-green);
+            box-shadow: 0 0 8px rgba(248, 231, 144, 0.5);
+            display: inline-block; /* Permite que el texto fluya alrededor */
+        }
     </style>
 </head>
 <body class="text-gray-100">
@@ -326,7 +339,7 @@ Tu navegador no soporta la etiqueta de video HTML5.
 <header class="text-center mb-6">
             
             
-<img src="https://i.imgur.com/yPzgjRa.png" alt="V.E.N.O.M. TOURNAMENT (Lord del Fuego Infernal) Logo" class="mx-auto w-full max-w-lg md:max-w-xl h-auto mb-2">
+<img src="https://i.imgur.com/yPzgjRa.png" alt="STAR TOURNAMENT (Lord del Fuego Infernal) Logo" class="mx-auto w-full max-w-lg md:max-w-xl h-auto mb-2">
             
             
 <div class="header-info-card mx-auto max-w-lg">
@@ -380,49 +393,41 @@ Tu navegador no soporta la etiqueta de video HTML5.
                 <div class="bg-gray-800 rounded-lg shadow-xl p-6 md:p-8">
                     <h2 class="text-3xl font-bold text-primary-neon-green mb-4">¡Bienvenidos al Torneo!</h2>
                     <p class="text-lg text-gray-300 mb-6">
-                        Esta es la guía interactiva oficial del <span class="font-bold">V.E.N.O.M. TOURNAMENT - LORD DEL FUEGO INFERNAL</span>. Hemos organizado todas las reglas para que puedas encontrar fácilmente lo que necesitas. Revisa los datos clave a continuación y navega por las pestañas para conocer todos los detalles.
+                        Esta es la guía interactiva oficial del STAR TOURNAMENT - LORD DEL FUEGO INFERNAL. Hemos organizado todas las reglas para que puedas encontrar fácilmente lo que necesitas. Revisa los datos clave a continuación y navega por las pestañas para conocer todos los detalles.
                     </p>
 
                     
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+<div class="text-center mb-8">
+                        <h3 class="2xl font-bold text-primary-neon-green mb-3 uppercase tracking-wider">PREMIO AL GANADOR</h3>
                         
-<div class="stat-card border-l-4" style="border-left-color: var(--secondary-blue-violet);">
-                            <span class="text-xs font-semibold text-gray-400 mb-1 text-center">PREMIO AL EQUIPO GANADOR</span>
-                            <span class="text-xl md:text-2xl font-bold text-secondary-blue-violet text-center">5 Pases Semanales</span>
+                        
+<div class="stat-card border-l-4 mx-auto max-w-sm" style="border-left-color: var(--secondary-blue-violet);">
+                            <span class="text-xs font-semibold text-gray-400 mb-1 text-center">EL JUGADOR CAMPEÓN RECIBE</span>
+                            <span class="text-3xl md:text-4xl font-extrabold text-secondary-blue-violet text-center flex items-center justify-center">
+                                Tarjeta VIP 
+                                
+<img src="https://i.imgur.com/Q1mMV2Q.jpeg" alt="Tarjeta VIP" class="prize-image-inline">
+                            </span>
                             
-<span class="text-xs font-medium text-primary-neon-green mt-1 text-center">Entregado por DIGISTAR</span
-                        </div>
-                        
-<div class="stat-card border-l-4" style="border-left-color: var(--primary-neon-green);">
-                            <span class="text-xs font-semibold text-gray-400 mb-1">MODALIDAD DE PARTIDA</span>
-                            <span class="text-xl md:text-2xl font-bold text-primary-neon-green text-center">Bo1 - Eliminación Simple</span>
+<span class="text-xs font-medium text-primary-neon-green mt-1 text-center">Patrocinada por DIGISTAR</span
                         </div>
                     </div>
 
                     
 <div class="mb-10 p-6 rounded-lg shadow-2xl" style="background-color: var(--translucent-black-70);">
-                        <h3 class="2xl font-bold text-primary-neon-green mb-4" style="text-shadow: 0 0 5px var(--primary-neon-green);">CRONOGRAMA OFICIAL DEL TORNEO</h3>
+                        <h3 class="2xl font-bold text-primary-neon-green mb-4 text-center" style="text-shadow: 0 0 5px var(--primary-neon-green);">CRONOGRAMA OFICIAL DEL TORNEO</h3>
                         
-                        <div class="grid md:grid-cols-2 gap-6 text-center">
+                        <div class="grid place-items-center">
                             
-<div class="p-4 rounded-lg border-2" style="border-color: var(--secondary-blue-violet);">
-                                <span class="block text-3xl font-extrabold text-secondary-blue-violet mb-2">JUEVES 13 NOV</span>
-                                <span class="block text-xl font-bold text-primary-neon-green mb-3">9:00 PM Vzla</span>
+<div class="p-6 rounded-lg border-2 w-full max-w-md text-center" style="border-color: var(--primary-neon-green);">
+                                <span class="block text-3xl font-extrabold text-primary-neon-green mb-2">SÁBADO 15 NOV</span>
+                                <span class="block text-xl font-bold text-secondary-blue-violet mb-3">8:00 PM Vzla</span>
                                 <p class="text-gray-200 font-semibold">Rondas a Jugar:</p>
                                 <ul class="list-none text-lg text-gray-300 mt-1">
-                                    <li><span class="font-bold">Primera Ronda</span> (16 Equipos)</li>
-                                    <li><span class="font-bold">Cuartos de Final</span> (8 Equipos)</li>
-                                </ul>
-                            </div>
-
-                            
-<div class="p-4 rounded-lg border-2" style="border-color: var(--primary-neon-green);">
-                                <span class="block text-3xl font-extrabold text-primary-neon-green mb-2">VIERNES 14 NOV</span>
-                                <span class="block text-xl font-bold text-secondary-blue-violet mb-3">9:00 PM Vzla</span>
-                                <p class="text-gray-200 font-semibold">Rondas a Jugar:</p>
-                                <ul class="list-none text-lg text-gray-300 mt-1">
-                                    <li><span class="font-bold">Semifinal</span> (4 Equipos)</li>
-                                    <li><span class="font-bold">Gran Final</span> (2 Equipos)</li>
+                                    <li><span class="font-bold">Primera Ronda</span> (16 Participantes)</li>
+                                    <li><span class="font-bold">Cuartos de Final</span> (8 Participantes)</li>
+                                    <li><span class="font-bold">Semifinal</span> (4 Participantes)</li>
+                                    <li><span class="font-bold">Gran Final</span> (2 Participantes)</li>
                                 </ul>
                             </div>
                         </div>
@@ -431,7 +436,7 @@ Tu navegador no soporta la etiqueta de video HTML5.
                     
 <h3 class="2xl font-bold text-primary-neon-green mb-4">Progresión del Torneo</h3>
                     <p class="text-gray-300 mb-4">
-                        El torneo se desarrollará en dos días con formato de eliminación simple (Bo1). La gráfica a continuación muestra cómo avanzarán los equipos (desde 16) hasta encontrar al campeón.
+                        El torneo se desarrollará en un único día con formato de eliminación simple (Bo1). La gráfica a continuación muestra cómo avanzarán los 16 participantes hasta encontrar al campeón.
                     </p>
                     <div class="chart-container w-full max-w-2xl mx-auto h-80 md:h-96 relative">
                         <canvas id="bracketChart"></canvas>
@@ -542,7 +547,7 @@ Tu navegador no soporta la etiqueta de video HTML5.
 <div class="mt-10 pt-6 border-t border-gray-700">
                         <h3 class="text-2xl font-bold text-secondary-blue-violet mb-4 text-center">Requisito Obligatorio para Premios</h3>
                         <p class="text-lg text-gray-300 mb-6 text-center">
-                            Para poder recibir los 5 Pases Semanales (patrocinados por <span class="font-bold text-secondary-blue-violet">DIGISTAR</span>), es obligatorio que <span class="font-bold text-primary-neon-green">todos los miembros del equipo ganador</span> sigan nuestras redes sociales. ¡Conéctate con TNML!
+                            Para poder recibir la <span class="font-bold text-secondary-blue-violet">Tarjeta VIP</span> (patrocinada por <span class="font-bold text-secondary-blue-violet">DIGISTAR</span>), es obligatorio que <span class="font-bold text-primary-neon-green">el ganador</span> siga nuestras redes sociales. ¡Conéctate con TNML!
                         </p>
                         
                         
@@ -811,7 +816,7 @@ Tu navegador no soporta la etiqueta de video HTML5.
                     data: {
                         labels: ['Primera Ronda', 'Cuartos de Final', 'Semifinal', 'Gran Final', 'Campeón'],
                         datasets: [{
-                            label: 'Equipos Restantes',
+                            label: 'Participantes Restantes',
                             data: [16, 8, 4, 2, 1],
                             backgroundColor: [
                                 gray400,
@@ -845,7 +850,7 @@ Tu navegador no soporta la etiqueta de video HTML5.
                                 },
                                 title: {
                                     display: true,
-                                    text: 'Número de Equipos',
+                                    text: 'Número de Participantes',
                                     color: secondaryColor /* Púrpura */
                                 }
                             },
@@ -901,7 +906,7 @@ Tu navegador no soporta la etiqueta de video HTML5.
                 updateMusicButton(); // Actualizar el botón a OFF (Visualmente)
             });
 
-            // Función para alternar la música
+            // Función para alternar la música (Corregido el ReferenceError)
             function toggleMusic() {
                 if (isMusicPlaying) {
                     backgroundMusic.pause();
