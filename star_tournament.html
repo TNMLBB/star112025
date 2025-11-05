@@ -19,8 +19,8 @@
             --primary-neon-green: #F8E790; /* Amarillo Pastel */
             --secondary-blue-violet: #A478D7; /* Púrpura */
             --base-black: #000000; /* Black */
-            /* Nuevo color para Denuncia/Advertencia */
-            --alert-neon-red: #4682B4; /* Azul */
+            /* Nuevo color para Denuncia/Advertencia (ROJO vibrante) */
+            --alert-neon-red: #FF4136; /* Rojo */
             
             /* --- FIN: PALETA DE COLORES ACTUALIZADA --- */
 
@@ -183,10 +183,10 @@
             }
         }
         
-        /* Las tarjetas de advertencia o destaque (Azul #4682B4) */
+        /* Las tarjetas de advertencia o destaque (ROJO #FF4136) */
         .bg-red-900\/50 { 
-            background-color: rgba(70, 130, 180, 0.5); /* 50% Opacidad del Azul */
-            border-color: rgba(70, 130, 180, 0.7);
+            background-color: rgba(255, 65, 54, 0.5); /* 50% Opacidad del Rojo */
+            border-color: rgba(255, 65, 54, 0.7);
         }
 
         /* Utilidades de color customizadas */
@@ -206,10 +206,10 @@
                 1px 1px 0 var(--base-black);
         }
 
-        /* ESTILOS DEL BOTÓN DE DENUNCIA ACTUALIZADOS A AZUL */
+        /* ESTILOS DEL BOTÓN DE DENUNCIA ACTUALIZADOS A ROJO */
         .denuncia-btn {
-            background-color: var(--alert-neon-red); /* Azul */
-            color: var(--pure-white); /* Texto blanco para alto contraste en azul */
+            background-color: var(--alert-neon-red); /* Rojo */
+            color: var(--pure-white); /* Texto blanco para alto contraste en rojo */
             box-shadow: 0 0 10px var(--alert-neon-red);
             transition: all 0.3s ease;
             font-weight: 700; 
@@ -217,7 +217,7 @@
         .denuncia-btn:hover {
             box-shadow: 0 0 20px var(--alert-neon-red);
             transform: scale(1.05);
-            background-color: #5a94c6; /* Un azul un poco más claro al hacer hover */
+            background-color: #e6392c; /* Un rojo un poco más claro al hacer hover */
         }
         /* FIN ESTILOS DEL BOTÓN DE DENUNCIA */
 
@@ -289,7 +289,7 @@
         }
         .music-btn.off {
             /* Estado OFF */
-            background-color: var(--alert-neon-red); /* Azul */
+            background-color: var(--alert-neon-red); /* Rojo */
             color: var(--pure-white);
             box-shadow: 0 0 10px var(--alert-neon-red);
         }
@@ -371,7 +371,7 @@ Tu navegador no soporta la etiqueta de video HTML5.
                 Inicio
             </button>
             <button data-target="inscripcion" class="nav-btn text-sm md:text-base font-semibold py-2 px-3 md:px-5 rounded-lg">
-                Inscripción y Equipos
+                Inscripción
             </button>
             <button data-target="partida" class="nav-btn text-sm md:text-base font-semibold py-2 px-3 md:px-5 rounded-lg">
                 Reglas de Partida
@@ -406,7 +406,7 @@ Tu navegador no soporta la etiqueta de video HTML5.
                             <span class="text-3xl md:text-4xl font-extrabold text-secondary-blue-violet text-center flex items-center justify-center">
                                 Tarjeta VIP 
                                 
-<img src="https://i.imgur.com/Q1mMV2Q.jpeg" alt="Tarjeta VIP" class="prize-image-inline">
+<img src="https://i.imgur.com/eLoYwaJ.png" alt="Tarjeta VIP" class="prize-image-inline">
                             </span>
                             
 <span class="text-xs font-medium text-primary-neon-green mt-1 text-center">Patrocinada por DIGISTAR</span
@@ -448,17 +448,17 @@ Tu navegador no soporta la etiqueta de video HTML5.
 <section id="inscripcion-section" class="content-section">
                 
                 <div class="bg-gray-800 rounded-lg shadow-xl p-6 md:p-8">
-                    <h2 class="text-3xl font-bold text-primary-neon-green mb-4">Proceso de Inscripción de Equipos</h2>
+                    <h2 class="text-3xl font-bold text-primary-neon-green mb-4">Proceso de Inscripción</h2>
                     
                     
 <p class="text-lg text-gray-300 mb-4">
-                        Para participar en el torneo, primero debes contar con un <span class="font-bold text-secondary-blue-violet">escuadrón registrado dentro de Mobile Legends Bang Bang</span> y registrar por única vez a tu escuadrón en nuestra organización llenando un simple formulario. Luego de eso, ya podrás <span class="font-bold text-primary-neon-green">inscribir a tu equipo en el presente torneo</span>.
+                        Para participar en el <span class="font-bold text-secondary-blue-violet">STAR TOURNAMENT - Lord del Fuego Infernal</span>, primero debes contar con un <span class="font-bold text-secondary-blue-violet">escuadrón registrado dentro de Mobile Legends Bang Bang</span>. Ese mismo escuadrón debe estar plenamente registrado dentro de la <span class="font-bold text-primary-neon-green">Organización Torneos Nocturnos de Mobile Legends (TNML)</span>. Para ello, el <span class="font-bold text-primary-neon-green">Líder de tu Escuadrón</span> debe completar el registro por única vez en nuestra organización llenando un simple formulario contenido en el <span class="font-bold text-secondary-blue-violet">Paso 1</span> para luego poder participar en todos nuestros próximos torneos. Luego de eso, si tu escuadrón te designó cómo su representante, entonces ya podrás inscribirte siguiendo el formulario contenido en el <span class="font-bold text-secondary-blue-violet">Paso 2</span>.
                     </p>
                     
                     <div class="p-4 rounded-lg text-sm md:text-base mb-8" style="background-color: var(--translucent-black-70); border: 1px solid var(--secondary-blue-violet);">
                         <p class="font-bold text-primary-neon-green mb-1">NOTA IMPORTANTE:</p>
                         <p class="text-gray-300">
-                            Si tu escuadrón ya se encuentra registrado dentro de <span class="font-bold">TNML (Torneos Nocturnos de Mobile Legends)</span>, entonces sáltate el <span class="font-bold text-primary-neon-green">Paso 1</span> y ve directamente a inscribir a tus jugadores en el <span class="font-bold text-secondary-blue-violet">Paso 2</span>.
+                            Si tu escuadrón ya se encuentra registrado dentro de <span class="font-bold">TNML (Torneos Nocturnos de Mobile Legends)</span>, entonces sáltate el <span class="font-bold text-primary-neon-green">Paso 1</span> y ve directamente a registrarte en el <span class="font-bold text-secondary-blue-violet">Paso 2</span>.
                         </p>
                     </div>
                     
@@ -471,10 +471,10 @@ Tu navegador no soporta la etiqueta de video HTML5.
                             
                             
 <p class="text-gray-300 mb-4">
-                                <span class="font-semibold">OBLIGATORIO</span> para poder participar en nuestros torneos. El formulario es sencillo, sólo debes tener a la mano la información del Escuadrón debidamente registrado dentro de Mobile Legends y de su Líder.
+                                <span class="font-semibold">OBLIGATORIO</span> para poder participar en nuestros torneos. El formulario es <span class="font-bold text-primary-neon-green">sencillo</span>, sólo debes tener a la mano la información del <span class="font-bold text-secondary-blue-violet">Escuadrón debidamente registrado</span> dentro de Mobile Legends y de su Líder.
                             </p>
                             <div class="text-xs p-2 rounded-lg text-gray-400 font-medium w-full mt-2" style="background-color: var(--translucent-black-50);">
-                                <span class="font-bold text-primary-neon-green">Nota:</span> Si tu escuadrón ya está registrado en TNML, omite este paso.
+                                <span class="font-bold text-primary-neon-green">Nota:</span> Si tu escuadrón ya está registrado en TNML, <span class="font-bold text-secondary-blue-violet">omite este paso</span>.
                             </div>
                             
                             
@@ -488,20 +488,22 @@ Tu navegador no soporta la etiqueta de video HTML5.
                         
 <div class="step-card p-6 rounded-xl shadow-2xl flex flex-col items-center text-center">
                             <span class="text-6xl font-extrabold text-secondary-blue-violet mb-4">2</span>
-                            <h3 class="text-2xl font-bold text-secondary-blue-violet mb-3">Registra a tu Equipo en el Torneo</h3>
+                            <h3 class="text-2xl font-bold text-secondary-blue-violet mb-3">Representa a tu Escuadrón</h3>
                             
                             
 <p class="text-gray-300 mb-4">
-                                Si tu escuadrón está debidamente creado en Mobile Legends y registrado en TNML, puedes proceder a inscribir a tu Equipo de <span class="font-bold">5 Titulares</span> y máximo <span class="font-bold">2 Suplentes</span> para que participen en el V.E.N.O.M. Tournament.
+                                Si tu escuadrón está <span class="font-bold text-primary-neon-green">debidamente creado en Mobile Legends</span> y <span class="font-bold text-primary-neon-green">registrado en TNML</span>, puedes proceder a inscribirte para <span class="font-bold text-secondary-blue-violet">representar a tu Equipo</span> en el <span class="font-bold text-secondary-blue-violet">STAR TOURNAMENT - Lord del Fuego Infernal</span>.
                             </p>
-                            <div class="text-xs p-2 rounded-lg text-gray-400 font-medium w-full mt-2" style="background-color: var(--translucent-black-50);">
-                                <span class="font-bold text-secondary-blue-violet">Nota:</span> Una vez que se agoten los cupos no te permitirá inscribir a tu equipo.
+                            
+                            
+<div class="text-xs p-2 rounded-lg text-gray-400 font-medium w-full mt-2" style="background-color: var(--translucent-black-50);">
+                                <span class="font-bold text-secondary-blue-violet">Nota:</span> Una vez que se agoten los cupos <span class="font-bold text-primary-neon-green">no podrás registrarte</span>. Sólo se permite <span class="font-bold text-primary-neon-green">un representante por escuadrón</span>.
                             </div>
                             
                             
 <a href="https://forms.gle/QqYaPM1yN8Yzna9u7" target="_blank" 
                                 class="inline-block px-6 py-3 text-sm md:text-base font-bold uppercase rounded-xl btn-action-secondary w-full mt-auto">
-                                REGISTRO DE JUGADORES DEL EQUIPO AQUÍ
+                                REPRESENTA A TU ESCUADRÓN AQUÍ
                                 <svg class="w-5 h-5 inline ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                             </a>
                         </div>
@@ -509,36 +511,40 @@ Tu navegador no soporta la etiqueta de video HTML5.
 
                     
                     
-<h3 class="text-3xl font-bold text-primary-neon-green mb-6 border-t pt-6 border-gray-700">Detalles del Equipo de Torneo</h3>
+<h3 class="text-3xl font-bold text-primary-neon-green mb-6 border-t pt-6 border-gray-700">Detalles del Participante</h3>
 
                     <div class="grid md:grid-cols-2 gap-6">
                         
                         
 <div class="bg-gray-900 p-6 rounded-lg border border-gray-700">
-                            <h3 class="text-2xl font-semibold text-primary-neon-green mb-3">Composición del Equipo (Roster)</h3>
+                            <h3 class="text-2xl font-semibold text-primary-neon-green mb-3">Condiciones para Participar</h3>
                             <ul class="list-disc list-inside space-y-2 text-gray-300">
-                                <li><span class="font-bold">Costo:</span> La inscripción es 100% gratuita.</li>
-                                <li><span class="font-bold">Titulares:</span> 5 jugadores obligatorios.</li>
-                                <li><span class="font-bold">Suplentes:</span> 2 jugadores suplentes permitidos (máximo).</li>
+                                <li><span class="font-bold">Costo:</span> La inscripción es <span class="font-bold text-primary-neon-green">100% gratuita</span>.</li>
                                 <li><span class="font-bold">Restricciones:</span> No hay límites de edad o ubicación.</li>
-                                <li><span class="font-bold">Exclusividad:</span> Un jugador no puede estar inscrito en más de un equipo.</li>
+                                <li><span class="font-bold">Representación:</span> Sólo se permite <span class="font-bold text-primary-neon-green">un representante</span> por cada escuadrón registrado en TNML.</li>
+                                <li><span class="font-bold">Designación:</span> El escuadrón definirá cómo mejor les convenga quién de sus jugadores irá a representarlos (Por sorteo o votación).</li>
+                                <li><span class="font-bold">Información:</span> El escuadrón deberá estar <span class="font-bold text-primary-neon-green">debidamente informado</span> de quién lo representará en el STAR TOURNAMENT - Lord del Fuego Infernal.</li>
                             </ul>
                         </div>
 
                         
 <div class="bg-gray-900 p-6 rounded-lg border border-gray-700">
-                            <h3 class="text-2xl font-semibold text-primary-neon-green mb-3">Datos de Registro  </h3>
-                            <p class="text-gray-300 mb-3">El capitán debe entregar la siguiente información por CADA jugador (titular y suplente):</p>
+                            <h3 class="text-2xl font-semibold text-primary-neon-green mb-3">Datos de Registro  </h3>
+                            <p class="text-gray-300 mb-3">Para el registro, el participante deberá indicar la siguiente información:</p>
                             <ol class="list-decimal list-inside space-y-2 font-medium text-gray-300">
-                                <li>Nickname (Nombre en el juego)</li>
-                                <li>Game ID (ID de jugador)</li>
-                                
-</ol>
+                                <li><span class="font-bold text-primary-neon-green">Siglas</span> del Escuadrón</li>
+                                <li><span class="font-bold text-primary-neon-green">Nombre</span> del Escuadrón</li>
+                                <li><span class="font-bold text-secondary-blue-violet">Nombre y Apellido</span> del Participante</li>
+                                <li><span class="font-bold text-secondary-blue-violet">Nickname</span> del Participante</li>
+                                <li><span class="font-bold text-secondary-blue-violet">Whatsapp</span> del Participante</li>
+                                <li><span class="font-bold text-secondary-blue-violet">ID de Jugador</span> del Participante</li>
+                                <li><span class="font-bold text-primary-neon-green">Confirmación</span> de Representación de su Escuadrón</li>
+                            </ol>
                             
                             
 <div class="mt-4 p-3 bg-red-900/50 border rounded-lg" style="border-color: var(--alert-neon-red); color: var(--pure-white);">
-                                <p class="font-bold">¡Importante!</p>
-                                <p>El <span class="font-bold">Nickname</span> registrado no podrá ser modificado durante el torneo. Jugar con un nick diferente se considera suplantación.</p>
+                                <p class="font-bold text-lg">¡Atención!</p>
+                                <p>El <span class="font-bold text-primary-neon-green">Nickname</span> registrado no podrá ser modificado durante el torneo. Jugar con un nick diferente se considera <span class="font-bold">suplantación</span>.</p>
                             </div>
                         </div>
                     </div>
@@ -593,7 +599,7 @@ Tu navegador no soporta la etiqueta de video HTML5.
                 <div class="bg-gray-800 rounded-lg shadow-xl p-6 md:p-8">
                     <h2 class="text-3xl font-bold text-primary-neon-green mb-4">Reglas de Partida</h2>
                     <p class="text-lg text-gray-300 mb-6">
-                        Estas son las reglas que se aplic_an antes, durante y después de cada enfrentamiento. Es responsabilidad de los capitanes conocerlas.
+                        Estas son las reglas que se aplican antes, durante y después de cada enfrentamiento. Es responsabilidad de los participantes conocerlas.
                     </p>
 
                     <div class="space-y-6">
@@ -605,22 +611,32 @@ Tu navegador no soporta la etiqueta de video HTML5.
                                 <li class="flex items-start gap-3">
                                     <span class="text-secondary-blue-violet font-bold text-xl">►</span>
                                     <div>
-                                        <h4 class="font-semibold text-lg">Creación de Sala</h4>
-                                        <p class="text-gray-400">El modo de juego es <span class="font-bold">Draft Pick</span>. Los capitanes deben acordar quién crea la sala. (Recomendado: El equipo de arriba en el <span class="italic">bracket</span>). Servidor: Venezuela.</p>
+                                        <h4 class="font-semibold text-lg">Modo de Juego y Creación de Sala</h4>
+                                        <p class="text-gray-400 mb-4">
+                                            Los participantes deberán acordar entre ellos quién creará la Sala. Esta debe ser <span class="font-bold text-primary-neon-green">Personalizada / 1VS1</span>. Si uno de los participantes es de <span class="font-bold text-secondary-blue-violet">Venezuela</span>, tiene prioridad para crear la sala ese jugador.
+                                        </p>
+                                        
+                                        <!-- Caja con la imagen del modo de juego -->
+                                        <div class="mt-4 p-2 bg-gray-900 rounded-lg max-w-xs mx-auto border border-secondary-blue-violet">
+                                            <img src="https://i.imgur.com/1ToSBYw.jpeg" alt="Modo de Juego 1 vs 1" class="w-full h-auto rounded">
+                                        </div>
                                     </div>
                                 </li>
                                 <li class="flex items-start gap-3">
                                     <span class="text-gray-300 font-bold text-xl">►</span>
                                     <div>
                                         <h4 class="font-semibold text-lg">Puntualidad y W.O. (Walk Over)</h4>
-                                        <p class="text-gray-400">Hay <span class="font-bold">10 minutos de tolerancia</span> desde la hora oficial. Si un equipo no está completo (5 jugadores) tras 10 minutos, el rival puede pedir W.O.</p>
+                                        <p class="text-gray-400">Hay <span class="font-bold">10 minutos de tolerancia</span> desde la hora oficial. Si un jugador no está presente tras 10 minutos, el rival puede pedir W.O.</p>
                                     </div>
                                 </li>
                                 <li class="flex items-start gap-3">
                                     <span class="text-gray-300 font-bold text-xl">►</span>
                                     <div>
                                         <h4 class="font-semibold text-lg">Prueba de W.O.</h4>
-                                        <p class="text-gray-400">El capitán presente debe enviar un <span class="font-bold">capture de pantalla</span> a la organización mostrando la sala (con el rival incompleto) y la <span class="font-bold">hora actual</span> legible.</p>
+                                        <p class="text-gray-400">
+                                            El jugador presente debe enviar un <span class="font-bold text-primary-neon-green">capture de pantalla</span> a la organización mostrando la sala (con el rival ausente) y la hora actual legible. La denuncia debe ser hecha mediante el formulario contenido en esta página, en la sección 
+                                            <a href="#disputas-section" class="font-bold text-secondary-blue-violet underline hover:text-primary-neon-green transition-colors">"Disputas y Sanciones"</a>.
+                                        </p>
                                     </div>
                                 </li>
                             </ul>
@@ -632,18 +648,19 @@ Tu navegador no soporta la etiqueta de video HTML5.
                              <ul class="list-none space-y-4">
                                 
                                 <li class="flex items-start gap-3">
-                                    
-<span class="font-bold text-xl" style="color: var(--alert-neon-red);">►</span>
+                                    <span class="text-secondary-blue-violet font-bold text-xl">►</span>
                                     <div>
-                                        <h4 class="font-semibold text-lg" style="color: var(--alert-neon-red);">PROHIBIDO ESPECTADORES</h4>
-                                        <p class="text-gray-400">Solo los 10 jugadores pueden estar en la sala. (Excepción: La final podrá ser transmitida por staff de TNML).</p>
+                                        <h4 class="font-semibold text-lg">Espectadores</h4>
+                                        <p class="text-gray-400">
+                                            Se permiten todos los espectadores que deseen ver la partida en directo. Les invitamos a realizar <span class="font-bold text-primary-neon-green">Adivinanzas Divertidas 1vs1</span> para obtener <span class="font-bold text-secondary-blue-violet">Medallas 1v1</span>. Esperamos de corazón que se <span class="font-bold">diviertan en el proceso</span>.
+                                        </p>
                                     </div>
                                 </li>
                                 <li class="flex items-start gap-3">
                                     <span class="text-secondary-blue-violet font-bold text-xl">►</span>
                                     <div>
                                         <h4 class="font-semibold text-lg">Desconexiones</h4>
-                                        <p class="text-gray-400">Si un jugador se desconecta, la partida continúa 4v5. El jugador puede reconectar. No se reiniciará la partida por problemas de conexión.</p>
+                                        <p class="text-gray-400">Si un jugador se le cae la conexión o se desconecta, el <span class="font-bold text-primary-neon-green">resultado final de la partida</span> es lo que determinará de quién fué la victoria. No se reiniciará la partida por problemas de conexión.</p>
                                     </div>
                                 </li>
                             </ul>
@@ -658,7 +675,7 @@ Tu navegador no soporta la etiqueta de video HTML5.
                                     <div>
                                         <h4 class="font-semibold text-lg">Reporte de Resultado</h4>
                                         
-<p class="text-gray-400 mb-4">El capitán del equipo ganador deberá tomar un <span class="font-bold">capture de pantalla</span> del resultado final y enviarlo a la organización ingresando en el siguiente enlace.</p>
+<p class="text-gray-400 mb-4">El ganador deberá tomar un <span class="font-bold">capture de pantalla</span> del resultado final y enviarlo a la organización ingresando en el siguiente enlace.</p>
                                         
                                         
 <a href="https://docs.google.com/forms/d/e/1FAIpQLSfoJy_83bjUoWj4WVmvEQkhZpSCssym3bRFC-nXHg-3D18CfQ/viewform?usp=publish-editor" target="_blank" id="result-upload-btn" class="inline-block px-6 py-2 text-md font-bold uppercase rounded transition-all duration-300 transform hover:scale-105 shadow-md mt-2"
@@ -678,12 +695,18 @@ Tu navegador no soporta la etiqueta de video HTML5.
 <section id="conducta-section" class="content-section">
                 
                 <div class="bg-gray-800 rounded-lg shadow-xl p-6 md:p-8">
-                    <h2 class="text-3xl font-bold text-primary-neon-green mb-4">Código de Conducta  </h2>
+                    <h2 class="text-3xl font-bold text-primary-neon-green mb-4">Código de Conducta  </h2>
                     <p class="text-lg text-gray-300 mb-6">
                         El juego limpio y el respeto son la base de TNML. Incurrir en las siguientes faltas resultará en sanciones severas.
                     </p>
 
                     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        
+                        <!-- NUEVA TARJETA: Regla de W.O. -->
+                        <div class="stat-card border-l-4 border-primary-neon-green items-start p-4">
+                            <h3 class="text-xl font-bold text-primary-neon-green mb-2">✅ NORMA DE JUEGO</h3>
+                            <p class="text-gray-400"><span class="font-bold">Walk Over (W.O.):</span> Si un jugador no está completo tras <span class="font-bold">10 minutos de tolerancia</span> de la hora oficial, el rival puede pedir W.O.</p>
+                        </div>
                         
                         
 <div class="stat-card border-l-4 border-gray-400 items-start p-4">
@@ -720,7 +743,7 @@ Tu navegador no soporta la etiqueta de video HTML5.
                 <div class="bg-gray-800 rounded-lg shadow-xl p-6 md:p-8">
                     <h2 class="text-3xl font-bold text-primary-neon-green mb-4">Disputas y Sanciones</h2>
                     <p class="text-lg text-gray-300 mb-6">
-                        Si un equipo rival rompe las reglas, aquí te explicamos cómo proceder y cuáles son las consecuencias.
+                        Si un jugador rival rompe las reglas, aquí te explicamos cómo proceder y cuáles son las consecuencias.
                     </p>
 
                     <div class="grid md:grid-cols-2 gap-6">
@@ -728,16 +751,16 @@ Tu navegador no soporta la etiqueta de video HTML5.
                         
 <div class="bg-gray-900 p-6 rounded-lg border border-gray-700">
                             <h3 class="text-2xl font-semibold text-primary-neon-green mb-3">¿Cómo Denunciar una Falta?</h3>
-                            <p class="text-gray-300 mb-4">Dado que las partidas no son supervisadas (excepto la final), las denuncias deben ser presentadas por los capitanes.</p>
+                            <p class="text-gray-300 mb-4">Dado que las partidas no son supervisadas (excepto la final), las denuncias deben ser presentadas por los participantes.</p>
                             <ol class="list-decimal list-inside space-y-2 text-gray-300 mb-4">
-                                <li><span class="font-bold">Capitán:</span> Solo el capitán puede presentar una denuncia formal a la organización.</li>
-                                <li><span class="font-bold">PRUEBAS:</span> La denuncia debe incluir <span class="font-bold">pruebas irrefutables</span> (captures de pantalla del chat, videos, etc.) que muestren la falta, quién la cometió y la hora.</li>
+                                <li><span class="font-bold text-primary-neon-green">Capitán/Representante:</span> Solo el representante del escuadrón puede presentar una denuncia formal a la organización.</li>
+                                <li><span class="font-bold text-primary-neon-green">PRUEBAS:</span> La denuncia debe incluir <span class="font-bold">pruebas irrefutables</span> (captures de pantalla del chat, videos, etc.) que muestren la falta y quién la cometió.</li>
                                 <li class="font-semibold text-secondary-blue-violet">Sin pruebas claras, la denuncia será desestimada.</li>
                             </ol>
                             
                             
 <a href="https://docs.google.com/forms/d/e/1FAIpQLSciCjtgPFfOLh6V9u6vf-jYanlVD5LM4_FulKO9K-2U3_vouA/viewform?usp=publish-editor" target="_blank" id="denuncia-upload-btn" class="inline-block px-6 py-2 text-md font-bold uppercase rounded transition-all duration-300 transform hover:scale-105 shadow-md mt-2 denuncia-btn">
-                                DENUNCIA A UN EQUIPO AQUÍ
+                                DENUNCIA A UN JUGADOR AQUÍ
                                 <svg class="w-5 h-5 inline ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
                             </a>
                             
@@ -745,13 +768,13 @@ Tu navegador no soporta la etiqueta de video HTML5.
 
                         
 <div class="bg-gray-900 p-6 rounded-lg border border-gray-700">
-                            <h3 class="text-2xl font-semibold text-primary-neon-green mb-3">Sanciones por Faltas Graves  </h3>
-                            <p class="text-gray-300 mb-3">Cualquier equipo que cometa las faltas graves (trampas, suplantación, hacks) recibirá:</p>
+                            <h3 class="text-2xl font-semibold text-primary-neon-green mb-3">Sanciones por Faltas Graves  </h3>
+                            <p class="text-gray-300 mb-3">Cualquier participante que cometa las faltas graves (trampas, suplantación, hacks) recibirá:</p>
                             
                             
 <ul class="list-disc list-inside space-y-2 font-bold" style="color: var(--alert-neon-red);">
                                 <li>Descalificación Inmediata del torneo.</li>
-                                <li>Baneo Permanente de la organización TNML (equipo e integrantes).</li>
+                                <li>Baneo Permanente de la organización TNML (participante y escuadrón asociado).</li>
                             </ul>
                             
                             <div class="mt-4 p-3 bg-gray-700 border border-gray-600 text-gray-200 rounded-lg" style="background-color: var(--translucent-black-70) !important;">
@@ -793,8 +816,30 @@ Tu navegador no soporta la etiqueta de video HTML5.
                             section.classList.remove('active');
                         }
                     });
+
+                    // Si navegamos a una nueva sección, forzamos el scroll al top.
+                    window.scrollTo({ top: 0, behavior: 'smooth' }); 
                 });
             });
+            
+            // Lógica para manejar enlaces internos (como el de Prueba de W.O.)
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1).replace('-section', '');
+
+                    // Simular clic en el botón de navegación correspondiente
+                    const targetButton = document.querySelector(`.nav-btn[data-target="${targetId}"]`);
+                    if (targetButton) {
+                        targetButton.click();
+                        // Scroll al top de la sección
+                        setTimeout(() => {
+                           document.getElementById(`${targetId}-section`).scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }, 300); // Pequeño delay para asegurar la transición de la pestaña
+                    }
+                });
+            });
+
 
             // --- Chart.js Logic (Se mantiene la lógica para mostrar el bracket) ---
             const ctx = document.getElementById('bracketChart');
