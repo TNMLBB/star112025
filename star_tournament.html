@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- TÍTULO ACTUALIZADO -->
+    <title>STAR TOURNAMENT - Lord del Fuego Infernal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        
+        /* Custom Colors based on user request */
+        :root {
+            /* Colores Actualizados: */
+            --primary-neon-green: #39ff14; /* Electric Green */
+            --secondary-blue-violet: #8a2be2; /* Blue Violet */
+            --base-black: #000000; /* Black */
+            /* Nuevo color para Denuncia/Advertencia */
+            --alert-neon-red: #ff073a; /* Neon Red */
+            
+            /* Opacidades sobre el fondo negro */
+            --translucent-black-50: rgba(0, 0, 0, 0.5); 
+            --translucent-black-70: rgba(0, 0, 0, 0.7); 
+            
+            /* Color blanco puro para el efecto de hover */
+            --pure-white: #ffffff;
+        }
+
+        /* --- Background Video Styles --- */
+        #video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: -100; /* Asegura que esté en el fondo absoluto */
+            pointer-events: none; /* Ignora clics, permite interactuar con el contenido */
+        }
+        
+        /* Este pseudo-elemento actúa como un filtro oscuro para mejorar la legibilidad del texto */
+        #video-background::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* 50% de opacidad negra */
+            z-index: -99; /* Sobre el video, bajo el contenido principal */
+        }
+        
+        /* Estilos del reproductor de video para cubrir todo el viewport */
+        #background-video {
+            min-width: 100%;
+            min-height: 100%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* Centra el video */
+            object-fit: cover; /* Fuerza al video a cubrir el área sin distorsionar y manteniendo la relación de aspecto */
+        }
+        /* --- END Background Video Styles --- */
+
+
+        /* --- FLOTATING LOGO STYLES (COMMON) --- */
+        .floating-logo-container {
+            position: fixed; 
+            bottom: 20px;
+            z-index: 100;
+            transition: all 0.3s ease;
+            width: 80px; 
+            height: auto;
+            border-radius: 0.5rem; /* Pequeñas esquinas redondeadas */
+        }
+        
+        .floating-logo-container img {
+             width: 100%;
+             height: auto;
+             display: block;
+        }
+
+        /* Estilo Específico para el Logo de TNML (Derecha) */
+        #tnml-logo-container {
+            right: 20px;
+            filter: grayscale(100%) brightness(0.7); /* Opacidad inicial y escala de grises */
+        }
+        #tnml-logo-container:hover {
+            filter: grayscale(0%) brightness(1) drop-shadow(0 0 10px var(--pure-white)); /* Resaltado blanco */
+            opacity: 1;
+            transform: scale(1.05);
+        }
+        
+        /* Estilo Específico para el Logo del Patrocinador (Izquierda) */
+        #sponsor-logo-container {
+            left: 20px;
+            filter: invert(100%) grayscale(100%) brightness(0.7); /* INVERTIR COLORES + Opacidad inicial y escala de grises */
+        }
+        #sponsor-logo-container:hover {
+            filter: invert(100%) grayscale(0%) brightness(1) drop-shadow(0 0 10px var(--primary-neon-green)); /* Quita escala de grises y aplica brillo verde */
+            opacity: 1;
+            transform: scale(1.05);
+        }
+        /* --- END FLOTATING LOGO STYLES (COMMON) --- */
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--base-black); 
+            color: #f3f4f6; 
+            overflow-x: hidden; 
+        }
+        
+        /* --- NAVIGATION BUTTON STYLES --- */
+        .nav-btn {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .nav-btn.active {
+            background-color: var(--primary-neon-green); 
+            color: #000000; /* Negro para alto contraste con el verde neón */
+            /* Sombra ajustada al nuevo color primario: #39ff14 (57, 255, 20) */
+            box-shadow: 0 4px 6px -1px rgba(57, 255, 20, 0.5), 0 2px 4px -1px rgba(57, 255, 20, 0.2);
+        }
+        
+        .nav-btn:not(.active) {
+            color: #d1d5db; 
+            background-color: var(--translucent-black-50); 
+        }
+        
+        .nav-btn:not(.active):hover {
+            background-color: var(--translucent-black-70); 
+            color: var(--secondary-blue-violet); 
+        }
+        /* --- END NAVIGATION BUTTON STYLES --- */
+
+
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        
+        /* APLICACIÓN DE OPACIDAD AL 50% A TODAS LAS TARJETAS */
+        .stat-card {
+            background-color: var(--translucent-black-50); 
+            border-radius: 0.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        /* Sobrescribir las clases de Tailwind bg-gray-800 y bg-gray-900 con la opacidad del 50% (translucent-black-50) */
+        .bg-gray-800, .bg-gray-900 {
+            background-color: var(--translucent-black-50) !important; 
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        
+        /* Las tarjetas de advertencia o destaque (rojo) */
+        .bg-red-900\/50 { 
+            background-color: rgba(139, 0, 0, 0.7); 
+            border-color: rgba(220, 20, 60, 0.7); 
+        }
+
+        /* Utilidades de color customizadas */
+        .text-primary-neon-green {
+            color: var(--primary-neon-green);
+        }
+        .text-secondary-blue-violet {
+            color: var(--secondary-blue-violet);
+        }
+        
+        /* Clase para simular borde negro alrededor del texto (efecto neón) */
+        .text-outline-dark {
+            text-shadow: 
+                -1px -1px 0 var(--base-black),  
+                1px -1px 0 var(--base-black),
+                -1px 1px 0 var(--base-black),
+                1px 1px 0 var(--base-black);
+        }
+
+        /* ESTILOS DEL BOTÓN DE DENUNCIA ACTUALIZADOS A ROJO */
+        .denuncia-btn {
+            background-color: var(--alert-neon-red); /* Rojo Neón */
+            color: var(--base-black); /* Texto Negro para máximo contraste */
+            box-shadow: 0 0 10px var(--alert-neon-red);
+            transition: all 0.3s ease;
+            font-weight: 700; /* Bold */
+        }
+        .denuncia-btn:hover {
+            box-shadow: 0 0 20px var(--alert-neon-red);
+            transform: scale(1.05);
+            background-color: #ff335e; /* Un rojo un poco más claro al hacer hover */
+        }
+        /* FIN ESTILOS DEL BOTÓN DE DENUNCIA */
+
+        /* ESTILOS DE BOTONES DE ACCIÓN PRINCIPAL (REGISTRO) */
+        .btn-action-primary {
+            background-color: var(--primary-neon-green); 
+            box-shadow: 0 0 15px var(--primary-neon-green);
+            color: var(--base-black); /* Texto Negro */
+            transition: all 0.3s ease;
+            transform: scale(1.0);
+        }
+        .btn-action-primary:hover {
+            box-shadow: 0 0 25px var(--primary-neon-green), 0 0 3px var(--pure-white);
+            transform: scale(1.05);
+        }
+        
+        .btn-action-secondary {
+            background-color: var(--secondary-blue-violet); 
+            box-shadow: 0 0 15px var(--secondary-blue-violet);
+            color: var(--pure-white); /* Texto Blanco */
+            transition: all 0.3s ease;
+            transform: scale(1.0);
+        }
+        .btn-action-secondary:hover {
+            box-shadow: 0 0 25px var(--secondary-blue-violet), 0 0 3px var(--pure-white);
+            transform: scale(1.05);
+        }
+
+        /* ESTILOS DE PASO */
+        .step-card {
+            background-color: var(--translucent-black-70);
+            border: 2px solid var(--secondary-blue-violet);
+            transition: border-color 0.3s ease;
+        }
+        .step-card.primary-step {
+            border-color: var(--primary-neon-green);
+        }
+
+        /* Estilos para el nuevo contenedor de información debajo del título */
+        .header-info-card {
+            background-color: var(--translucent-black-70);
+            border-radius: 0.75rem; /* un poco más redondeado */
+            padding: 1rem 1.5rem; /* Espaciado interno */
+            margin-top: 1.5rem; /* Separación de la imagen */
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.6), 0 4px 6px -2px rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(138, 43, 226, 0.5); /* Borde sutil del color secundario */
+        }
+
+        /* ESTILOS AÑADIDOS: Enlaces interactivos en la tarjeta de título */
+        .interactive-link {
+            transition: all 0.2s ease-in-out;
+            display: block; /* Asegura que el área de clic sea toda la línea */
+            text-decoration: none; /* Quita el subrayado por defecto */
+        }
+        .interactive-link:hover {
+            color: var(--pure-white); /* Texto blanco en hover */
+            text-shadow: 0 0 5px var(--primary-neon-green); /* Sutil brillo neón */
+            transform: scale(1.01);
+        }
+        
+        /* ESTILOS AÑADIDOS: Botón de Música */
+        .music-btn {
+            /* Estado ON */
+            background-color: var(--primary-neon-green);
+            color: var(--base-black);
+            box-shadow: 0 0 10px var(--primary-neon-green);
+            transition: all 0.3s ease;
+            font-weight: 700;
+        }
+        .music-btn.off {
+            /* Estado OFF */
+            background-color: var(--alert-neon-red); /* Rojo cuando está apagada */
+            color: var(--pure-white);
+            box-shadow: 0 0 10px var(--alert-neon-red);
+        }
+        .music-btn:hover {
+            filter: brightness(1.2);
+        }
+    </style>
+</head>
+<body class="text-gray-100">
+
+    
+<!-- Background Video -->
+<div id="video-background">
+        
+<!-- Video Source - URL ACTUALIZADA -->
+<video id="background-video" autoplay loop muted playsinline>
+            <source src="https://i.imgur.com/oxcI55d.mp4" type="video/mp4">
+            
+<!-- Fallback Text -->
+Tu navegador no soporta la etiqueta de video HTML5.
+        </video>
+    </div>
+
+    
+<!-- Floating TNML Logo (Right) -->
+<a href="https://www.tiktok.com/@torneosnocturnos?_t=ZM-90xkaWgv1YW&_r=1" target="_blank" class="floating-logo-container" id="tnml-logo-container">
+        <img src="https://i.imgur.com/KFK0RR9.png" alt="TNML Logo">
+    </a>
+
+    
+<!-- Floating Sponsor Logo (Left) -->
+<a href="https://www.instagram.com/shopabsalom?igsh=MThjdTFpZm43OGhvZw==" target="_blank" class="floating-logo-container" id="sponsor-logo-container">
+        <img src="https://i.imgur.com/IWWufiu.png" alt="ABSALOM SHOP Logo">
+    </a>
+
+    <div class="container mx-auto max-w-5xl p-4 md:p-8 relative z-10">
+        
+        <!-- Header Section -->
+<header class="text-center mb-6">
+            <img src="https://i.imgur.com/b4woeWr.png" alt="ZODIAC TOURNAMENT (Temporada Escorpio) Logo" class="mx-auto w-full max-w-lg md:max-w-xl h-auto mb-2">
+            
+            <!-- Tournament Info Card -->
+<div class="header-info-card mx-auto max-w-lg">
+                <p class="text-xl md:text-2xl font-bold text-secondary-blue-violet uppercase underline mt-2">VERSIÓN NEPHILA</p>
+                <p class="text-lg md:text-xl font-semibold text-primary-neon-green mt-1">Organizado por Torneos Nocturnos de Mobile Legends (TNML)</p>
+                
+                <!-- Enlace Patrocinador (Ahora funcional e interactivo) -->
+                <a href="https://wa.me/p/8131935566862244/584127705837" target="_blank" class="text-base md:text-lg font-medium text-secondary-blue-violet mt-1 interactive-link">
+                    Patrocinado por <span class="font-bold underline">ABSALOM SHOP</span>
+                </a>
+                
+                <!-- Enlace Casteo (Ahora funcional e interactivo) -->
+                <a href="https://www.tiktok.com/@diabolos.gaming?_r=1&_t=ZM-914V1OER2tM" target="_blank" class="text-base md:text-lg font-medium text-gray-400 mt-1 interactive-link">
+                    Casteado por <span class="font-bold underline">DIABOLOS GAMING</span>
+                </a>
+                
+                <!-- Control de Música -->
+                <div class="mt-4">
+                    <!-- El botón inicia sin la clase 'off' para mostrar MÚSICA ON, y su contenido se establece en el script -->
+                    <button id="music-toggle-btn" class="music-btn py-2 px-4 rounded-full text-sm font-bold transition-all duration-300">
+                        <!-- Contenido inicial placeholder, será reemplazado por el script -->
+                        MÚSICA ON
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        
+<!-- Navigation Menu -->
+<nav class="flex flex-wrap justify-center gap-2 md:gap-4 p-4 mb-6 bg-gray-800 rounded-lg shadow-xl">
+            <button data-target="inicio" class="nav-btn active text-sm md:text-base font-semibold py-2 px-3 md:px-5 rounded-lg">
+                Inicio
+            </button>
+            <button data-target="inscripcion" class="nav-btn text-sm md:text-base font-semibold py-2 px-3 md:px-5 rounded-lg">
+                Inscripción y Equipos
+            </button>
+            <button data-target="partida" class="nav-btn text-sm md:text-base font-semibold py-2 px-3 md:px-5 rounded-lg">
+                Reglas de Partida
+            </button>
+            <button data-target="conducta" class="nav-btn text-sm md:text-base font-semibold py-2 px-3 md:px-5 rounded-lg">
+                Código de Conducta
+            </button>
+            <button data-target="disputas" class="nav-btn text-sm md:text-base font-semibold py-2 px-3 md:px-5 rounded-lg">
+                Disputas y Sanciones
+            </button>
+        </nav>
+
+        
+<!-- Main Content Area -->
+<main>
+            
+            <!-- Inicio Section (Default Active) -->
+<section id="inicio-section" class="content-section active">
+                
+                <div class="bg-gray-800 rounded-lg shadow-xl p-6 md:p-8">
+                    <h2 class="text-3xl font-bold text-primary-neon-green mb-4">¡Bienvenidos al Torneo!</h2>
+                    <p class="text-lg text-gray-300 mb-6">
+                        Esta es la guía interactiva oficial del <span class="font-bold">V.E.N.O.M. TOURNAMENT - Versión Nephila</span>. Hemos organizado todas las reglas para que puedas encontrar fácilmente lo que necesitas. Revisa los datos clave a continuación y navega por las pestañas para conocer todos los detalles.
+                    </p>
+
+                    <!-- Key Stats -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                        
+<!-- Prize Card -->
+<div class="stat-card border-l-4" style="border-left-color: var(--secondary-blue-violet);">
+                            <span class="text-xs font-semibold text-gray-400 mb-1 text-center">PREMIO AL EQUIPO GANADOR</span>
+                            <span class="text-xl md:text-2xl font-bold text-secondary-blue-violet text-center">5 Pases Semanales</span>
+                            <span class="text-xs font-medium text-primary-neon-green mt-1 text-center">Entregado por ABSALOM SHOP</span
+                        </div>
+                        
+<!-- Modality Card -->
+<div class="stat-card border-l-4" style="border-left-color: var(--primary-neon-green);">
+                            <span class="text-xs font-semibold text-gray-400 mb-1">MODALIDAD DE PARTIDA</span>
+                            <span class="text-xl md:text-2xl font-bold text-primary-neon-green text-center">Bo1 - Eliminación Simple</span>
+                        </div>
+                    </div>
+
+                    <!-- Schedule -->
+<div class="mb-10 p-6 rounded-lg shadow-2xl" style="background-color: var(--translucent-black-70);">
+                        <h3 class="2xl font-bold text-primary-neon-green mb-4" style="text-shadow: 0 0 5px #39ff14;">CRONOGRAMA OFICIAL DEL TORNEO</h3>
+                        
+                        <div class="grid md:grid-cols-2 gap-6 text-center">
+                            
+<!-- Day 1 Schedule -->
+<div class="p-4 rounded-lg border-2" style="border-color: var(--secondary-blue-violet);">
+                                <span class="block text-3xl font-extrabold text-secondary-blue-violet mb-2">JUEVES 13 NOV</span>
+                                <span class="block text-xl font-bold text-primary-neon-green mb-3">9:00 PM Vzla</span>
+                                <p class="text-gray-200 font-semibold">Rondas a Jugar:</p>
+                                <ul class="list-none text-lg text-gray-300 mt-1">
+                                    <li><span class="font-bold">Primera Ronda</span> (16 Equipos)</li>
+                                    <li><span class="font-bold">Cuartos de Final</span> (8 Equipos)</li>
+                                </ul>
+                            </div>
+
+                            
+<!-- Day 2 Schedule -->
+<div class="p-4 rounded-lg border-2" style="border-color: var(--primary-neon-green);">
+                                <span class="block text-3xl font-extrabold text-primary-neon-green mb-2">VIERNES 14 NOV</span>
+                                <span class="block text-xl font-bold text-secondary-blue-violet mb-3">9:00 PM Vzla</span>
+                                <p class="text-gray-200 font-semibold">Rondas a Jugar:</p>
+                                <ul class="list-none text-lg text-gray-300 mt-1">
+                                    <li><span class="font-bold">Semifinal</span> (4 Equipos)</li>
+                                    <li><span class="font-bold">Gran Final</span> (2 Equipos)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Bracket Chart -->
+<h3 class="2xl font-bold text-primary-neon-green mb-4">Progresión del Torneo</h3>
+                    <p class="text-gray-300 mb-4">
+                        El torneo se desarrollará en dos días con formato de eliminación simple (Bo1). La gráfica a continuación muestra cómo avanzarán los equipos (desde 16) hasta encontrar al campeón.
+                    </p>
+                    <div class="chart-container w-full max-w-2xl mx-auto h-80 md:h-96 relative">
+                        <canvas id="bracketChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Inscripcion Section -->
+<section id="inscripcion-section" class="content-section">
+                
+                <div class="bg-gray-800 rounded-lg shadow-xl p-6 md:p-8">
+                    <h2 class="text-3xl font-bold text-primary-neon-green mb-4">Proceso de Inscripción de Equipos</h2>
+                    
+                    <!-- INICIO: Párrafo Modificado (Nota Importante) -->
+                    <p class="text-lg text-gray-300 mb-4">
+                        Para participar en el torneo, primero debes contar con un <span class="font-bold text-secondary-blue-violet">escuadrón registrado dentro de Mobile Legends Bang Bang</span> y registrar por única vez a tu escuadrón en nuestra organización llenando un simple formulario. Luego de eso, ya podrás <span class="font-bold text-primary-neon-green">inscribir a tu equipo en el presente torneo</span>.
+                    </p>
+                    
+                    <div class="p-4 rounded-lg text-sm md:text-base mb-8" style="background-color: var(--translucent-black-70); border: 1px solid var(--secondary-blue-violet);">
+                        <p class="font-bold text-primary-neon-green mb-1">NOTA IMPORTANTE:</p>
+                        <p class="text-gray-300">
+                            Si tu escuadrón ya se encuentra registrado dentro de <span class="font-bold">TNML (Torneos Nocturnos de Mobile Legends)</span>, entonces sáltate el <span class="font-bold text-primary-neon-green">Paso 1</span> y ve directamente a inscribir a tus jugadores en el <span class="font-bold text-secondary-blue-violet">Paso 2</span>.
+                        </p>
+                    </div>
+                    <!-- FIN: Párrafo Modificado (Nota Importante) -->
+
+
+                    <div class="grid md:grid-cols-2 gap-8 mb-10">
+                        
+                        <!-- Step 1: Register Squad (UPDATED CONTENT) -->
+                        <div class="step-card primary-step p-6 rounded-xl shadow-2xl flex flex-col items-center text-center">
+                            <span class="text-6xl font-extrabold text-primary-neon-green mb-4">1</span>
+                            <h3 class="text-2xl font-bold text-primary-neon-green mb-3">Inscribe a tu Escuadrón en TNML</h3>
+                            
+                            <!-- New Content -->
+                            <p class="text-gray-300 mb-4">
+                                <span class="font-semibold">OBLIGATORIO</span> para poder participar en nuestros torneos. El formulario es sencillo, sólo debes tener a la mano la información del Escuadrón debidamente registrado dentro de Mobile Legends y de su Líder.
+                            </p>
+                            <div class="text-xs p-2 rounded-lg text-gray-400 font-medium w-full mt-2" style="background-color: var(--translucent-black-50);">
+                                <span class="font-bold text-primary-neon-green">Nota:</span> Si tu escuadrón ya está registrado en TNML, omite este paso.
+                            </div>
+                            
+                            <!-- Registration Link -->
+                            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfo11rmii5Hb-t-FY366mK_n5cDirwltU5wzEkqSqkLDeMrUw/viewform?usp=header" target="_blank" 
+                                class="inline-flex items-center justify-center px-6 py-3 text-sm md:text-base font-bold uppercase rounded-xl btn-action-primary w-full mt-auto">
+                                REGISTRO DE ESCUADRÓN
+                                <svg class="w-8 h-8 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                            </a>
+                        </div>
+                        
+                        <!-- Step 2: Register Players (UPDATED CONTENT) -->
+                        <div class="step-card p-6 rounded-xl shadow-2xl flex flex-col items-center text-center">
+                            <span class="text-6xl font-extrabold text-secondary-blue-violet mb-4">2</span>
+                            <h3 class="text-2xl font-bold text-secondary-blue-violet mb-3">Registra a tu Equipo en el Torneo</h3>
+                            
+                            <!-- New Content -->
+                            <p class="text-gray-300 mb-4">
+                                Si tu escuadrón está debidamente creado en Mobile Legends y registrado en TNML, puedes proceder a inscribir a tu Equipo de <span class="font-bold">5 Titulares</span> y máximo <span class="font-bold">2 Suplentes</span> para que participen en el V.E.N.O.M. Tournament.
+                            </p>
+                            <div class="text-xs p-2 rounded-lg text-gray-400 font-medium w-full mt-2" style="background-color: var(--translucent-black-50);">
+                                <span class="font-bold text-secondary-blue-violet">Nota:</span> Una vez que se agoten los cupos no te permitirá inscribir a tu equipo.
+                            </div>
+                            
+                            <!-- Player Registration Link -->
+                            <a href="https://forms.gle/QqYaPM1yN8Yzna9u7" target="_blank" 
+                                class="inline-block px-6 py-3 text-sm md:text-base font-bold uppercase rounded-xl btn-action-secondary w-full mt-auto">
+                                REGISTRO DE JUGADORES DEL EQUIPO AQUÍ
+                                <svg class="w-5 h-5 inline ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    
+                    <!-- Team Details -->
+<h3 class="text-3xl font-bold text-primary-neon-green mb-6 border-t pt-6 border-gray-700">Detalles del Equipo de Torneo</h3>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        
+                        <!-- Composition Rules -->
+<div class="bg-gray-900 p-6 rounded-lg border border-gray-700">
+                            <h3 class="text-2xl font-semibold text-primary-neon-green mb-3">Composición del Equipo (Roster)</h3>
+                            <ul class="list-disc list-inside space-y-2 text-gray-300">
+                                <li><span class="font-bold">Costo:</span> La inscripción es 100% gratuita.</li>
+                                <li><span class="font-bold">Titulares:</span> 5 jugadores obligatorios.</li>
+                                <li><span class="font-bold">Suplentes:</span> 2 jugadores suplentes permitidos (máximo).</li>
+                                <li><span class="font-bold">Restricciones:</span> No hay límites de edad o ubicación.</li>
+                                <li><span class="font-bold">Exclusividad:</span> Un jugador no puede estar inscrito en más de un equipo.</li>
+                            </ul>
+                        </div>
+
+                        <!-- Registration Data -->
+<div class="bg-gray-900 p-6 rounded-lg border border-gray-700">
+                            <h3 class="text-2xl font-semibold text-primary-neon-green mb-3">Datos de Registro  </h3>
+                            <p class="text-gray-300 mb-3">El capitán debe entregar la siguiente información por CADA jugador (titular y suplente):</p>
+                            <ol class="list-decimal list-inside space-y-2 font-medium text-gray-300">
+                                <li>Nickname (Nombre en el juego)</li>
+                                <li>Game ID (ID de jugador)</li>
+                                
+<!-- Closing list item tag -->
+</ol>
+                            
+                            <div class="mt-4 p-3 bg-red-900/50 border border-red-500 text-red-300 rounded-lg">
+                                <p class="font-bold">¡Importante!</p>
+                                <p>El <span class="font-bold">Nickname</span> registrado no podrá ser modificado durante el torneo. Jugar con un nick diferente se considera suplantación.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Social Media Requirement -->
+<div class="mt-10 pt-6 border-t border-gray-700">
+                        <h3 class="text-2xl font-bold text-secondary-blue-violet mb-4 text-center">Requisito Obligatorio para Premios</h3>
+                        <p class="text-lg text-gray-300 mb-6 text-center">
+                            Para poder recibir los 5 Pases Semanales, es obligatorio que <span class="font-bold text-primary-neon-green">todos los miembros del equipo ganador</span> sigan nuestras redes sociales. ¡Conéctate con TNML!
+                        </p>
+                        
+                        <!-- Social Links -->
+<div class="flex flex-wrap justify-center gap-6">
+                            
+                            <!-- TikTok Link -->
+<a href="https://www.tiktok.com/@torneosnocturnos?_t=ZM-90xkaWgv1YW&_r=1" target="_blank" class="flex flex-col items-center p-4 rounded-xl transition-all duration-300 shadow-xl hover:shadow-primary-neon-green/50 transform hover:scale-105" 
+                                style="background-color: var(--translucent-black-70);">
+                                <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12.53 0C13.25 0 14.07 0 14.49 0.47C14.78 0.77 15 1.15 15 1.83V9.75C15 10.33 15.02 10.98 15.05 11.66C15.09 12.35 15.13 13.1 15.13 13.9C15.13 17.5 12.3 20.33 8.7 20.33C5.1 20.33 2.27 17.5 2.27 13.9C2.27 10.3 5.1 7.47 8.7 7.47C8.94 7.47 9.25 7.49 9.58 7.51V10.74C9.4 10.71 9.22 10.7 9.04 10.7C7.45 10.7 6.13 12.02 6.13 13.61C6.13 15.2 7.45 16.52 9.04 16.52C10.63 16.52 11.95 15.2 11.95 13.61V0.01H12.53Z" fill="white"/>
+                                </svg>
+                                <span class="mt-2 text-sm font-semibold text-gray-200">TikTok</span>
+                            </a>
+                            
+                            <!-- Instagram Link -->
+<a href="https://www.instagram.com/torneos.nocturnos?igsh=MWtlNm9zeXo3ZnVhaA==" target="_blank" class="flex flex-col items-center p-4 rounded-xl transition-all duration-300 shadow-xl hover:shadow-primary-neon-green/50 transform hover:scale-105" 
+                                style="background-color: var(--translucent-black-70);">
+                                <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg">
+                                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                                </svg>
+                                <span class="mt-2 text-sm font-semibold text-gray-200">Instagram</span>
+                            </a>
+                            
+                            <!-- WhatsApp Channel Link -->
+<a href="https://whatsapp.com/channel/0029VabsitS5Ui2f1ZZkgE0c" target="_blank" class="flex flex-col items-center p-4 rounded-xl transition-all duration-300 shadow-xl hover:shadow-primary-neon-green/50 transform hover:scale-105" 
+                                style="background-color: var(--translucent-black-70);">
+                                <svg class="w-8 h-8 text-white" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M12 2C6.48 2 2 6.48 2 12C2 14.15 2.68 16.14 3.86 17.74L2.5 22L7.38 20.73C8.95 21.6 10.4 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM17.16 16.28C16.92 16.69 14.97 17.6 14.62 17.65C14.28 17.7 14.07 17.72 13.68 17.65C13.29 17.58 11.95 17.15 10.37 16.5C8.61 15.82 7.55 14.11 7.23 13.6C6.9 13.08 6.64 12.28 6.75 11.45C6.86 10.62 7.41 10.03 7.82 9.61C8.16 9.27 8.52 9.17 8.87 9.1C9.21 9.03 9.47 9.01 9.77 9.53C10.07 10.05 10.57 11.35 10.67 11.55C10.77 11.74 10.93 11.97 10.83 12.19C10.73 12.41 10.53 12.63 10.22 12.97C9.9 13.31 9.62 13.65 9.4 13.91C9.17 14.17 9.1 14.47 9.4 14.77C9.7 15.07 10.31 16.03 11.1 16.73C12.14 17.62 13.02 17.9 13.3 18.04C13.58 18.18 13.88 18.16 14.18 17.99C14.48 17.82 15.28 17.38 15.54 16.95C15.8 16.52 16.05 16.34 16.35 16.34C16.65 16.34 16.92 16.39 17.16 16.28Z" fill="white"/>
+                                </svg>
+                                <span class="mt-2 text-sm font-semibold text-gray-200">Canal de WhatsApp</span>
+                            </a>
+                            
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Partida Section -->
+<section id="partida-section" class="content-section">
+                
+                <div class="bg-gray-800 rounded-lg shadow-xl p-6 md:p-8">
+                    <h2 class="text-3xl font-bold text-primary-neon-green mb-4">Reglas de Partida</h2>
+                    <p class="text-lg text-gray-300 mb-6">
+                        Estas son las reglas que se aplican antes, durante y después de cada enfrentamiento. Es responsabilidad de los capitanes conocerlas.
+                    </p>
+
+                    <div class="space-y-6">
+                        
+                        <!-- Before Match Rules -->
+<div>
+                            <h3 class="2xl font-semibold text-primary-neon-green mb-3 border-b-2 border-gray-700 pb-2">Antes de la Partida</h3>
+                            <ul class="list-none space-y-4">
+                                <li class="flex items-start gap-3">
+                                    <span class="text-secondary-blue-violet font-bold text-xl">►</span>
+                                    <div>
+                                        <h4 class="font-semibold text-lg">Creación de Sala</h4>
+                                        <p class="text-gray-400">El modo de juego es <span class="font-bold">Draft Pick</span>. Los capitanes deben acordar quién crea la sala. (Recomendado: El equipo de arriba en el <span class="italic">bracket</span>). Servidor: Venezuela.</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="text-gray-300 font-bold text-xl">►</span>
+                                    <div>
+                                        <h4 class="font-semibold text-lg">Puntualidad y W.O. (Walk Over)</h4>
+                                        <p class="text-gray-400">Hay <span class="font-bold">10 minutos de tolerancia</span> desde la hora oficial. Si un equipo no está completo (5 jugadores) tras 10 minutos, el rival puede pedir W.O.</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="text-gray-300 font-bold text-xl">►</span>
+                                    <div>
+                                        <h4 class="font-semibold text-lg">Prueba de W.O.</h4>
+                                        <p class="text-gray-400">El capitán presente debe enviar un <span class="font-bold">capture de pantalla</span> a la organización mostrando la sala (con el rival incompleto) y la <span class="font-bold">hora actual</span> legible.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- During Match Rules (PROHIBIDO PAUSAR REMOVED) -->
+<div>
+                            <h3 class="2xl font-semibold text-primary-neon-green mb-3 border-b-2 border-gray-700 pb-2">Durante la Partida</h3>
+                             <ul class="list-none space-y-4">
+                                
+                                <li class="flex items-start gap-3">
+                                    <span class="text-red-500 font-bold text-xl">►</span>
+                                    <div>
+                                        <h4 class="font-semibold text-lg text-red-400">PROHIBIDO ESPECTADORES</h4>
+                                        <p class="text-gray-400">Solo los 10 jugadores pueden estar en la sala. (Excepción: La final podrá ser transmitida por staff de TNML).</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="text-secondary-blue-violet font-bold text-xl">►</span>
+                                    <div>
+                                        <h4 class="font-semibold text-lg">Desconexiones</h4>
+                                        <p class="text-gray-400">Si un jugador se desconecta, la partida continúa 4v5. El jugador puede reconectar. No se reiniciará la partida por problemas de conexión.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- After Match Rules -->
+<div>
+                            <h3 class="2xl font-semibold text-primary-neon-green mb-3 border-b-2 border-gray-700 pb-2">Después de la Partida</h3>
+                             <ul class="list-none space-y-4">
+                                <li class="flex items-start gap-3">
+                                    <span class="text-secondary-blue-violet font-bold text-xl">►</span>
+                                    <div>
+                                        <h4 class="font-semibold text-lg">Reporte de Resultado</h4>
+                                        
+<!-- Result Reporting Text -->
+<p class="text-gray-400 mb-4">El capitán del equipo ganador deberá tomar un <span class="font-bold">capture de pantalla</span> del resultado final y enviarlo a la organización ingresando en el siguiente enlace.</p>
+                                        
+                                        <!-- Result Upload Button -->
+<a href="https://docs.google.com/forms/d/e/1FAIpQLSfoJy_83bjUoWj4WVmvEQkhZpSCssym3bRFC_nXHg-3D18CfQ/viewform?usp=publish-editor" target="_blank" id="result-upload-btn" class="inline-block px-6 py-2 text-md font-bold text-black uppercase rounded transition-all duration-300 transform hover:scale-105 shadow-md mt-2"
+                                            style="background-color: var(--secondary-blue-violet); box-shadow: 0 0 10px var(--secondary-blue-violet);">
+                                            CARGA LOS RESULTADOS DE TU PARTIDA AQUÍ
+                                            <svg class="w-5 h-5 inline ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0l-4 4m4-4v12"></path></svg>
+                                        </a>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Conducta Section -->
+<section id="conducta-section" class="content-section">
+                
+                <div class="bg-gray-800 rounded-lg shadow-xl p-6 md:p-8">
+                    <h2 class="text-3xl font-bold text-primary-neon-green mb-4">Código de Conducta  </h2>
+                    <p class="text-lg text-gray-300 mb-6">
+                        El juego limpio y el respeto son la base de TNML. Incurrir en las siguientes faltas resultará en sanciones severas.
+                    </p>
+
+                    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        
+                        <!-- Rule 1: Impersonation -->
+<div class="stat-card border-l-4 border-gray-400 items-start p-4">
+                            <h3 class="text-xl font-bold text-gray-300 mb-2">🚫 PROHIBIDO</h3>
+                            <p class="text-gray-400"><span class="font-bold">Suplantación de Identidad:</span> Jugar en la cuenta de otro jugador o con un Nickname no registrado.</p>
+                        </div>
+                        <!-- Rule 2: External Programs -->
+                        <div class="stat-card border-l-4 border-gray-400 items-start p-4">
+                            <h3 class="text-xl font-bold text-gray-300 mb-2">🚫 PROHIBIDO</h3>
+                            <p class="text-gray-400"><span class="font-bold">Programas Externos:</span> Uso de <span class="italic">hacks</span>, <span class="italic">scripts</span>, <span class="italic">map hacks</span> o cualquier software de trampa.</p>
+                        </div>
+                        <!-- Rule 3: Bug Abuse (FIXED) -->
+                        <div class="stat-card border-l-4 border-gray-400 items-start p-4">
+                            <h3 class="text-xl font-bold text-gray-300 mb-2">🚫 PROHIBIDO</h3>
+                            <p class="text-gray-400"><span class="font-bold">Aprovechamiento de Bugs:</span> Usar intencionalmente <span class="italic">bugs</span> o <span class="italic">exploits</span> del juego para ganar.</p>
+                        </div>
+                        <!-- Rule 4: Toxic Behavior (FIXED) -->
+                        <div class="stat-card border-l-4 border-gray-400 items-start p-4">
+                            <h3 class="text-xl font-bold text-gray-300 mb-2">🚫 PROHIBIDO</h3>
+                            <p class="text-gray-400"><span class="font-bold">Comportamiento Tóxico:</span> Faltas de respeto, lenguaje vulgar, acoso o amenazas (dentro o fuera del juego).</p>
+                        </div>
+                        <!-- Rule 5: In-Game Provocation -->
+                        <div class="stat-card border-l-4 border-gray-400 items-start p-4">
+                            <h3 class="text-xl font-bold text-gray-300 mb-2">🚫 PROHIBIDO</h3>
+                            <p class="text-gray-400"><span class="font-bold">Provocación en Juego:</span> Burlas, <span class="italic">spam</span> de <span class="italic">emotes</span> y <span class="italic">backeos</span> con la intención de provocar al rival.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Disputas Section -->
+<section id="disputas-section" class="content-section">
+                
+                <div class="bg-gray-800 rounded-lg shadow-xl p-6 md:p-8">
+                    <h2 class="text-3xl font-bold text-primary-neon-green mb-4">Disputas y Sanciones</h2>
+                    <p class="text-lg text-gray-300 mb-6">
+                        Si un equipo rival rompe las reglas, aquí te explicamos cómo proceder y cuáles son las consecuencias.
+                    </p>
+
+                    <div class="grid md:grid-cols-2 gap-6">
+                        
+                        <!-- How to Report -->
+<div class="bg-gray-900 p-6 rounded-lg border border-gray-700">
+                            <h3 class="text-2xl font-semibold text-primary-neon-green mb-3">¿Cómo Denunciar una Falta?</h3>
+                            <p class="text-gray-300 mb-4">Dado que las partidas no son supervisadas (excepto la final), las denuncias deben ser presentadas por los capitanes.</p>
+                            <ol class="list-decimal list-inside space-y-2 text-gray-300 mb-4">
+                                <li><span class="font-bold">Capitán:</span> Solo el capitán puede presentar una denuncia formal a la organización.</li>
+                                <li><span class="font-bold">PRUEBAS:</span> La denuncia debe incluir <span class="font-bold">pruebas irrefutables</span> (captures de pantalla del chat, videos, etc.) que muestren la falta, quién la cometió y la hora.</li>
+                                <li class="font-semibold text-secondary-blue-violet">Sin pruebas claras, la denuncia será desestimada.</li>
+                            </ol>
+                            
+                            <!-- Denounce Button -->
+<a href="https://docs.google.com/forms/d/e/1FAIpQLSciCjtgPFfOLh6V9u6vf-jYanlVD5LM4_FulKO9K-2U3_vouA/viewform?usp=publish-editor" target="_blank" id="denuncia-upload-btn" class="inline-block px-6 py-2 text-md font-bold uppercase rounded transition-all duration-300 transform hover:scale-105 shadow-md mt-2 denuncia-btn">
+                                DENUNCIA A UN EQUIPO AQUÍ
+                                <svg class="w-5 h-5 inline ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+                            </a>
+                            
+                        </div>
+
+                        <!-- Sanctions -->
+<div class="bg-gray-900 p-6 rounded-lg border border-gray-700">
+                            <h3 class="text-2xl font-semibold text-primary-neon-green mb-3">Sanciones por Faltas Graves  </h3>
+                            <p class="text-gray-300 mb-3">Cualquier equipo que cometa las faltas graves (trampas, suplantación, hacks) recibirá:</p>
+                            
+                            <ul class="list-disc list-inside space-y-2 text-red-500 font-bold">
+                                <li>Descalificación Inmediata del torneo.</li>
+                                <li>Baneo Permanente de la organización TNML (equipo e integrantes).</li>
+                            </ul>
+                            
+                            <div class="mt-4 p-3 bg-gray-700 border border-gray-600 text-gray-200 rounded-lg" style="background-color: var(--translucent-black-70) !important;">
+                                <p class="font-bold">Autoridad Final</p>
+                                <p>La organización TNML tiene la decisión final e inapelable sobre todas las disputas, basándose en las pruebas presentadas.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            // --- Navigation Logic ---
+            const navButtons = document.querySelectorAll('.nav-btn');
+            const contentSections = document.querySelectorAll('.content-section');
+
+            navButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetId = button.getAttribute('data-target');
+
+                    // Update buttons
+                    navButtons.forEach(btn => {
+                        if (btn.getAttribute('data-target') === targetId) {
+                            btn.classList.add('active');
+                        } else {
+                            btn.classList.remove('active');
+                        }
+                    });
+
+                    // Update content
+                    contentSections.forEach(section => {
+                        if (section.id === `${targetId}-section`) {
+                            section.classList.add('active');
+                        } else {
+                            section.classList.remove('active');
+                        }
+                    });
+                });
+            });
+
+            // --- Chart.js Logic (Se mantiene la lógica para mostrar el bracket) ---
+            const ctx = document.getElementById('bracketChart');
+            
+            // Solo inicializamos el gráfico si el elemento existe en el DOM
+            if (ctx) {
+                // Obtención robusta de colores CSS para Chart.js
+                const secondaryColor = getComputedStyle(document.documentElement).getPropertyValue('--secondary-blue-violet').trim();
+                
+                // Conversión de color primario (#39ff14) a RGB para usar en Chart.js (57, 255, 20)
+                const primaryRgbaStrong = 'rgba(57, 255, 20, 1)';
+                const primaryRgbaMedium = 'rgba(57, 255, 20, 0.6)';
+
+                const gray400 = 'rgba(156, 163, 175, 0.6)'; 
+                
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Primera Ronda', 'Cuartos de Final', 'Semifinal', 'Gran Final', 'Campeón'],
+                        datasets: [{
+                            label: 'Equipos Restantes',
+                            data: [16, 8, 4, 2, 1],
+                            backgroundColor: [
+                                gray400,
+                                'rgba(107, 114, 128, 0.6)', 
+                                'rgba(75, 85, 99, 0.6)',   
+                                primaryRgbaMedium, 
+                                primaryRgbaStrong     
+                            ],
+                            borderColor: [
+                                gray400,
+                                'rgba(107, 114, 128, 1)',
+                                'rgba(75, 85, 99, 1)',
+                                primaryRgbaStrong, 
+                                primaryRgbaStrong
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    stepSize: 2,
+                                    color: '#d1d5db' 
+                                },
+                                grid: {
+                                    color: 'rgba(55, 65, 81, 0.5)' 
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Número de Equipos',
+                                    color: secondaryColor 
+                                }
+                            },
+                            x: {
+                                ticks: {
+                                    color: '#d1d5db' 
+                                },
+                                grid: {
+                                    color: 'rgba(55, 65, 81, 0.5)' 
+                                },
+                                title: {
+                                    display: true,
+                                    text: 'Rondas del Torneo',
+                                    color: secondaryColor 
+                                }
+                                
+                            }
+                        }
+                    }
+                });
+            }
+
+            // --- Music Toggle Logic - Implementación para intentar Autoplay ---
+            const musicBtn = document.getElementById('music-toggle-btn');
+            
+            // Creación dinámica del elemento de audio
+            const backgroundMusic = new Audio('https://tnmlbb.github.io/musicadetorneos/dramatic-epic-cinema-150027.mp3');
+            backgroundMusic.loop = true; // Reproducir en bucle
+            backgroundMusic.volume = 0.5; // Volumen inicial moderado
+            
+            // CAMBIO CLAVE 1: Asumimos que la música debe estar sonando al inicio (estado deseado)
+            let isMusicPlaying = true; 
+
+            // Función para actualizar el texto y la apariencia del botón
+            const updateMusicButton = () => {
+                if (isMusicPlaying) {
+                    musicBtn.classList.remove('off');
+                    // Icono de volumen/altavoz
+                    musicBtn.innerHTML = `<svg class="w-4 h-4 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.536 8.464l-4.243 4.243 1.06 1.06 4.243-4.243 1.06-1.06zM9 19L5 15H1v-6h4l4-4v10z"></path></svg> MÚSICA ON`;
+                } else {
+                    musicBtn.classList.add('off');
+                    // Icono de silencio/tachado
+                    musicBtn.innerHTML = `<svg class="w-4 h-4 inline-block mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1.757 1.757l20.5 20.5M6 9H2v6h4l6 6V3L6 9z"></path></svg> MÚSICA OFF`;
+                }
+            };
+
+            // Función para alternar el estado de la música
+            const toggleMusic = () => {
+                if (isMusicPlaying) {
+                    backgroundMusic.pause();
+                    isMusicPlaying = false;
+                } else {
+                    // Intenta reproducir. Esto funcionará aquí porque el usuario hizo clic (interacción)
+                    backgroundMusic.play().catch(error => {
+                        console.error("Error al intentar reproducir el audio:", error);
+                    });
+                    isMusicPlaying = true;
+                }
+                updateMusicButton();
+            };
+
+            // 2. Intentar la reproducción automática
+            updateMusicButton(); // Establece el botón como ON visualmente
+            
+            backgroundMusic.play().catch(error => {
+                // Si el navegador bloquea el autoplay (política estándar), ajustamos el estado y el botón
+                console.warn("Autoplay bloqueado. La música no iniciará hasta el primer clic del usuario.");
+                isMusicPlaying = false; // Revertir el estado a OFF
+                updateMusicButton(); // Actualizar el botón a OFF (Visualmente)
+            });
+
+            // Asignar el evento al botón
+            musicBtn.addEventListener('click', toggleMusic);
+        });
+    </script>
+
+</body>
+</html>
