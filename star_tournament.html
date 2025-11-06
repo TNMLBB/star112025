@@ -308,6 +308,21 @@
             box-shadow: 0 0 8px rgba(248, 231, 144, 0.5);
             display: inline-block; /* Permite que el texto fluya alrededor */
         }
+        
+        /* --- ESTILOS AÑADIDOS: BOTÓN DE CALENDARIO --- */
+        .calendar-btn {
+            background-color: var(--secondary-blue-violet); 
+            color: var(--pure-white); 
+            box-shadow: 0 0 10px var(--secondary-blue-violet);
+            transition: all 0.3s ease;
+            font-weight: 700; 
+        }
+        .calendar-btn:hover {
+            box-shadow: 0 0 20px var(--secondary-blue-violet), 0 0 5px var(--pure-white);
+            transform: scale(1.03);
+            background-color: #8c60ce; /* Púrpura ligeramente más claro */
+        }
+        /* --- FIN ESTILOS BOTÓN DE CALENDARIO --- */
     </style>
 </head>
 <body class="text-gray-100">
@@ -429,6 +444,14 @@ Tu navegador no soporta la etiqueta de video HTML5.
                                     <li><span class="font-bold">Semifinal</span> (4 Participantes)</li>
                                     <li><span class="font-bold">Gran Final</span> (2 Participantes)</li>
                                 </ul>
+                                
+                                <!-- BOTÓN DE AGENDAR EN CALENDARIO (NUEVO) -->
+                                <a id="calendar-link" href="#" target="_blank" class="mt-6 inline-flex items-center justify-center calendar-btn py-3 px-6 rounded-full text-base uppercase">
+                                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h.01M7 14h.01M17 14h.01M12 14h.01M7 17h.01M12 17h.01M17 17h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                    AGENDAR EN CALENDARIO
+                                </a>
+                                <!-- FIN BOTÓN CALENDARIO -->
+                                
                             </div>
                         </div>
                     </div>
@@ -794,8 +817,50 @@ Tu navegador no soporta la etiqueta de video HTML5.
     </div>
 
     <script>
+        // Función auxiliar para obtener colores CSS (utilizado por Chart.js)
+        function getCssVar(name) {
+            return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+        }
+
+        // Función para generar la URL del calendario de Google
+        function generateCalendarUrl() {
+            // El formato de fecha y hora que Google Calendar espera es YYYYMMDDTHHMMSSZ/YYYYMMDDTHHMMSSZ
+            // SÁBADO 15 NOV a las 8:00 PM (20:00) Vzla
+            
+            // Determinar el año actual o siguiente, asumiendo que el torneo es en el futuro cercano.
+            // Para simplificar, asumiremos que el año es 2025 (siguiendo el contexto de la respuesta anterior)
+            const year = new Date().getFullYear();
+            
+            // 15 de Noviembre (Mes 11)
+            const dateStr = `${year}1115`; 
+            
+            // Hora de inicio: 20:00:00 (8 PM) -> 200000
+            const startTime = '200000'; 
+            
+            // Hora de fin: 22:00:00 (10 PM) -> 220000
+            const endTime = '220000'; 
+
+            const title = encodeURIComponent('STAR TOURNAMENT - Lord del Fuego Infernal');
+            const details = encodeURIComponent('Torneo de Mobile Legends (TNML) - Rondas de Eliminación. ¡Asegúrate de estar listo a tiempo!');
+            const location = encodeURIComponent('Online - Servidor de Mobile Legends Bang Bang');
+            
+            // Se usa el formato 'ctz' (Custom Time Zone) para forzar la hora de Venezuela (America/Caracas - GMT-4)
+            // Nota: Este formato requiere el Timezone ID oficial de IANA. Vzla = America/Caracas.
+            const googleCalendarUrl = `https://www.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&location=${location}&dates=${dateStr}T${startTime}/${dateStr}T${endTime}&ctz=America/Caracas`;
+
+            return googleCalendarUrl;
+        }
+
+
         document.addEventListener('DOMContentLoaded', function () {
             
+            // Establecer el enlace del calendario
+            const calendarLink = document.getElementById('calendar-link');
+            if (calendarLink) {
+                calendarLink.href = generateCalendarUrl();
+            }
+
+
             // --- Navigation Logic ---
             const navButtons = document.querySelectorAll('.nav-btn');
             const contentSections = document.querySelectorAll('.content-section');
@@ -852,8 +917,8 @@ Tu navegador no soporta la etiqueta de video HTML5.
             // Solo inicializamos el gráfico si el elemento existe en el DOM
             if (ctx) {
                 // Obtención robusta de colores CSS para Chart.js
-                const secondaryColor = getComputedStyle(document.documentElement).getPropertyValue('--secondary-blue-violet').trim();
-                const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-neon-green').trim();
+                const secondaryColor = getCssVar('--secondary-blue-violet');
+                const primaryColor = getCssVar('--primary-neon-green');
                 
                 // Conversión de color primario (Amarillo #F8E790) a RGB (248, 231, 144)
                 const primaryRgbaStrong = 'rgba(248, 231, 144, 1)';
