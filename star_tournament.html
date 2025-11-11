@@ -146,7 +146,8 @@
         <nav class="flex flex-wrap justify-center gap-2 md:gap-4 p-4 mb-6 bg-gray-800 rounded-lg shadow-xl">
             <button data-target="inicio" class="nav-btn active text-sm md:text-base font-semibold py-2 px-3 md:px-5 rounded-lg">Inicio</button>
             <button data-target="inscripcion" class="nav-btn text-sm md:text-base font-semibold py-2 px-3 md:px-5 rounded-lg">Inscripción</button>
-            <button data-target="partida" class="nav-btn text-sm md:text-base font-semibold py-2 px-3 md:px-5 rounded-lg">Reglas de Partida</button>
+            <!-- REGLAS DE PARTIDA CAMBIADO A SÓLO "REGLAS" -->
+            <button data-target="partida" class="nav-btn text-sm md:text-base font-semibold py-2 px-3 md:px-5 rounded-lg">Reglas</button>
             <button data-target="conducta" class="nav-btn text-sm md:text-base font-semibold py-2 px-3 md:px-5 rounded-lg">Código de Conducta</button>
             <button data-target="disputas" class="nav-btn text-sm md:text-base font-semibold py-2 px-3 md:px-5 rounded-lg">Disputas y Sanciones</button>
         </nav>
@@ -286,17 +287,37 @@
             </section>
             <section id="partida-section" class="content-section">
                 <div class="bg-gray-800 rounded-lg shadow-xl p-6 md:p-8">
-                    <h2 class="text-3xl font-bold text-primary-neon-green mb-4">Reglas de Partida</h2>
+                    <h2 class="text-3xl font-bold text-primary-neon-green mb-4">Reglas</h2>
                     <p class="text-lg text-gray-300 mb-6">Estas son las reglas que se aplican antes, durante y después de cada enfrentamiento. Es responsabilidad de los participantes conocerlas.</p>
                     <div class="space-y-6">
                         <div>
                             <h3 class="2xl font-semibold text-primary-neon-green mb-3 border-b-2 border-gray-700 pb-2">Antes de la Partida</h3>
                             <ul class="list-none space-y-4">
+                                
+                                <!-- NUEVA REGLA: Contacto Obligatorio Pre-Partida -->
+                                <li class="flex items-start gap-3">
+                                    <span class="text-secondary-blue-violet font-bold text-xl">►</span>
+                                    <div>
+                                        <h4 class="font-semibold text-lg">Contacto Obligatorio Pre-Partida</h4>
+                                        <p class="text-gray-400">Ambos jugadores deben <span class="font-bold text-primary-neon-green">contactarse vía WhatsApp</span> al menos <span class="font-bold text-primary-neon-green">10 minutos antes</span> de la hora pautada de la partida para coordinar la creación de la sala.</p>
+                                    </div>
+                                </li>
+                                <!-- FIN NUEVA REGLA -->
+
                                 <li class="flex items-start gap-3">
                                     <span class="text-secondary-blue-violet font-bold text-xl">►</span>
                                     <div>
                                         <h4 class="font-semibold text-lg">Modo de Juego y Creación de Sala</h4>
-                                        <p class="text-gray-400 mb-4">Los participantes deberán acordar entre ellos quién creará la Sala. Esta debe ser <span class="font-bold text-primary-neon-green">Personalizada / 1VS1</span>. Si uno de los participantes es de <span class="font-bold text-secondary-blue-violet">Venezuela</span>, tiene prioridad para crear la sala ese jugador.</p>
+                                        <p class="text-gray-400 mb-4">Los participantes deberán acordar entre ellos quién creará la Sala. Esta debe ser <span class="font-bold text-primary-neon-green">Personalizada / 1VS1</span>. Si uno de los participantes es de <span class="font-bold text-secondary-blue-violet">Venezuela</span>, tiene prioridad para crear la sala ese jugador.
+                                            <br>Si ambos o ningún jugador es venezolano, y no llegan a un acuerdo, deberán lanzar una moneda virtual, que debe ser transmitida por videollamada mostrando la pantalla uno de ellos.
+                                        </p>
+                                        <div class="mt-4">
+                                            <!-- BOTÓN AÑADIDO PARA LANZAR MONEDA VIRTUAL -->
+                                            <a href="https://share.google/gWDlmqwOYe3EmYted" target="_blank" class="inline-flex items-center justify-center px-6 py-3 text-sm md:text-base font-bold uppercase rounded-xl btn-action-primary transition-all duration-300 transform hover:scale-105 shadow-md">
+                                                LANZAR MONEDA VIRTUAL AQUÍ
+                                                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                            </a>
+                                        </div>
                                         <div class="mt-4 p-2 bg-gray-900 rounded-lg max-w-xs mx-auto border border-secondary-blue-violet">
                                             <img src="https://i.imgur.com/1ToSBYw.jpeg" alt="Modo de Juego 1 vs 1" class="w-full h-auto rounded">
                                         </div>
@@ -313,10 +334,8 @@
                                     <span class="text-gray-300 font-bold text-xl">►</span>
                                     <div>
                                         <h4 class="font-semibold text-lg">Prueba de W.O.</h4>
-                                        <p class="text-gray-400">
-                                            El jugador presente debe enviar un <span class="font-bold text-primary-neon-green">capture de pantalla</span> a la organización mostrando la sala (con el rival ausente) y la hora actual legible. La denuncia debe ser hecha mediante el formulario contenido en esta página, en la sección 
-                                            <a href="#disputas-section" class="font-bold text-secondary-blue-violet underline hover:text-primary-neon-green transition-colors">"Disputas y Sanciones"</a>.
-                                        </p>
+                                        <!-- DESCRIPCIÓN MODIFICADA -->
+                                        <p class="text-gray-400">El jugador presente deberá documentar el W.O. tomando un <span class="font-bold">capture de pantalla</span> de la sala con la <span class="font-bold">hora legible</span> (mostrando que el jugador rival no llegó a tiempo) y enviarlo a través del formulario de Carga de Resultados, tal como si hubiese ganado la partida. La organización revisará la prueba y aplicará el W.O. si procede.</p>
                                     </div>
                                 </li>
                             </ul>
