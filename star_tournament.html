@@ -58,13 +58,12 @@
         .prize-image-inline{width:80px;height:auto;margin-left:.75rem;vertical-align:middle;border-radius:.25rem;border:1px solid var(--primary-neon-green);box-shadow:0 0 8px rgba(248,231,144,.5);display:inline-block;}
         .calendar-btn{background-color:var(--secondary-blue-violet);color:var(--pure-white);box-shadow:0 0 10px var(--secondary-blue-violet);transition:all .3s ease;font-weight:700;}
         .calendar-btn:hover{box-shadow:0 0 20px var(--secondary-blue-violet),0 0 5px var(--pure-white);transform:scale(1.03);background-color:#8c60ce;}
-        /* Estilo para la nueva alerta */
         .mandatory-alert {
-            background-color: rgba(255, 65, 54, 0.2); /* Rojo muy suave */
+            background-color: rgba(255, 65, 54, 0.2);
             border: 2px solid var(--alert-neon-red);
             color: var(--pure-white);
             padding: 1.25rem;
-            border-radius: 0.5rem; /* Hacemos el radio un poco más pequeño para que quepa bien */
+            border-radius: 0.5rem;
             text-align: center;
             box-shadow: 0 0 15px rgba(255, 65, 54, 0.7);
         }
@@ -78,15 +77,38 @@
             font-size: 1.125rem;
             font-weight: 600;
         }
+        /* Estilo para la nueva alerta de TikTok */
+        .tiktok-live-alert {
+            background-color: rgba(164, 120, 215, 0.3); /* Base de Secondary Blue Violet */
+            border: 2px solid var(--secondary-blue-violet);
+            color: var(--pure-white);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            text-align: center;
+            box-shadow: 0 0 20px rgba(164, 120, 215, 0.8);
+            animation: pulse-border 1.5s infinite alternate;
+        }
+        @keyframes pulse-border {
+            from { border-color: var(--secondary-blue-violet); box-shadow: 0 0 15px rgba(164, 120, 215, 0.8); }
+            to { border-color: var(--primary-neon-green); box-shadow: 0 0 25px var(--primary-neon-green); }
+        }
+        .tiktok-live-alert strong {
+            font-size: 1.875rem; /* text-3xl */
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary-neon-green);
+        }
     </style>
 </head>
 <body class="text-gray-100">
     <div id="video-background">
+        <!-- Vídeo de fondo -->
         <video id="background-video" autoplay loop muted playsinline>
             <source src="https://i.imgur.com/oxcI55d.mp4" type="video/mp4">
             Tu navegador no soporta la etiqueta de video HTML5.
         </video>
     </div>
+    <!-- Logos Flotantes -->
     <a href="https://www.tiktok.com/@torneosnocturnos?_t=ZM-90xkaWgv1YW&_r=1" target="_blank" class="floating-logo-container" id="tnml-logo-container">
         <img src="https://i.imgur.com/KFK0RR9.png" alt="TNML Logo">
     </a>
@@ -106,7 +128,7 @@
                     Casteado por <span class="font-bold underline">DIABOLOS GAMING</span>
                 </a>
                 
-                <!-- ALERTA DE LECTURA OBLIGATORIA (AHORA SIN ICONO) -->
+                <!-- ALERTA DE LECTURA OBLIGATORIA -->
                 <div class="mandatory-alert mt-4 mb-4">
                     <strong class="flex items-center justify-center">
                          ATENCIÓN CAPITANES
@@ -178,6 +200,21 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- NUEVA ALERTA DE TRANSMISIÓN EN VIVO -->
+                    <div class="tiktok-live-alert mt-8 mb-10">
+                        <strong class="flex items-center justify-center">
+                            <svg class="w-8 h-8 mr-3" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="color: #69C9D0;"><path d="M21 6.5c0 1.25-1.125 2.25-2.5 2.25S16 7.75 16 6.5v-2c0-1.25 1.125-2.25 2.5-2.25s2.5 1 2.5 2.25v2zm-12 11c0 1.93-1.57 3.5-3.5 3.5S2 19.43 2 17.5 3.57 14 5.5 14h4.5v-1h-6.5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h6.5v-3h-4.5zM22 17.5c0 1.93-1.57 3.5-3.5 3.5S15 19.43 15 17.5 16.57 14 18.5 14h3.5v3.5zm-5.5-12c0-1.93 1.57-3.5 3.5-3.5S21 3.57 21 5.5s-1.57 3.5-3.5 3.5H15v1h6.5c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2H15v3.5z" style="fill: var(--primary-neon-green);"></path></svg>
+                            ¡GRAN FINAL EN VIVO!
+                            <svg class="w-8 h-8 ml-3" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" style="color: #EE1D52;"><path d="M21 6.5c0 1.25-1.125 2.25-2.5 2.25S16 7.75 16 6.5v-2c0-1.25 1.125-2.25 2.5-2.25s2.5 1 2.5 2.25v2zm-12 11c0 1.93-1.57 3.5-3.5 3.5S2 19.43 2 17.5 3.57 14 5.5 14h4.5v-1h-6.5c-1.1 0-2 .9-2 2v4c0 1.1.9 2 2 2h6.5v-3h-4.5zM22 17.5c0 1.93-1.57 3.5-3.5 3.5S15 19.43 15 17.5 16.57 14 18.5 14h3.5v3.5zm-5.5-12c0-1.93 1.57-3.5 3.5-3.5S21 3.57 21 5.5s-1.57 3.5-3.5 3.5H15v1h6.5c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2H15v3.5z" style="fill: var(--secondary-blue-violet);"></path></svg>
+                        </strong>
+                        <p class="text-xl font-semibold text-gray-200 mb-4">Sigue el enfrentamiento definitivo (Bo3) en nuestra cuenta oficial de TikTok.</p>
+                        <a href="https://www.tiktok.com/@torneosnocturnos?_t=ZM-90xkaWgv1YW&_r=1" target="_blank" class="inline-flex items-center justify-center px-8 py-3 text-lg font-bold uppercase rounded-full transition-all duration-300 transform hover:scale-105 shadow-xl"
+                            style="background-color: var(--primary-neon-green); color: var(--base-black); box-shadow: 0 0 15px var(--primary-neon-green);">
+                            VER LA TRANSMISIÓN EN TIKTOK
+                        </a>
+                    </div>
+                    
                     <h3 class="2xl font-bold text-primary-neon-green mb-4">Progresión del Torneo</h3>
                     <p class="text-gray-300 mb-4">El torneo se desarrollará en un único día con formato de eliminación simple (Bo1, excepto la Gran Final que es Bo3). La gráfica a continuación muestra cómo avanzarán los 16 participantes hasta encontrar al campeón.</p>
                     <div class="chart-container w-full max-w-2xl mx-auto h-80 md:h-96 relative">
@@ -415,10 +452,10 @@
             const year=new Date().getFullYear();
             const dateStr=`${year}1115`;
             const startTime='200000';
-            const endTime='230000'; // Ajustamos la hora de fin para el Bo3
-            const title=encodeURIComponent('STAR TOURNAMENT - Lord del Fuego Infernal (¡Final Bo3!)');
-            const details=encodeURIComponent('Torneo de Mobile Legends (TNML) - Rondas de Eliminación. ¡Asegúrate de estar listo a tiempo! Nota: La Gran Final es Bo3.');
-            const location=encodeURIComponent('Online - Servidor de Mobile Legends Bang Bang');
+            const endTime='230000';
+            const title=encodeURIComponent('STAR TOURNAMENT - Lord del Fuego Infernal (¡Final Bo3 y en vivo!)');
+            const details=encodeURIComponent('Torneo de Mobile Legends (TNML) - Rondas de Eliminación. ¡Asegúrate de estar listo a tiempo! Nota: La Gran Final es Bo3 y se transmite en vivo por TikTok.');
+            const location=encodeURIComponent('Online - Servidor de Mobile Legends Bang Bang (Transmisión en TikTok de TNML)');
             return `https://www.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&location=${location}&dates=${dateStr}T${startTime}/${dateStr}T${endTime}&ctz=America/Caracas`;
         }
         document.addEventListener('DOMContentLoaded',function(){
