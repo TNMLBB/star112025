@@ -49,7 +49,7 @@
         .btn-action-secondary:hover{box-shadow:0 0 25px var(--secondary-blue-violet),0 0 3px var(--pure-white);transform:scale(1.05);}
         .step-card{background-color:var(--translucent-black-70);border:2px solid var(--secondary-blue-violet);transition:border-color .3s ease;}
         .step-card.primary-step{border-color:var(--primary-neon-green);}
-        .header-info-card{background-color:var(--translucent-black-70);border-radius:.75rem;padding:1rem 1.5rem;margin-top:1.5rem;box-shadow:0 10px 15px -3px rgba(0,0,0,.6),0 44px 6px -2px rgba(0,0,0,.4);border:1px solid rgba(164,120,215,.5);}
+        .header-info-card{background-color:var(--translucent-black-70);border-radius:.75rem;padding:1.5rem 1.5rem;margin-top:1.5rem;box-shadow:0 10px 15px -3px rgba(0,0,0,.6),0 44px 6px -2px rgba(0,0,0,.4);border:1px solid rgba(164,120,215,.5);}
         .interactive-link{transition:all .2s ease-in-out;display:block;text-decoration:none;}
         .interactive-link:hover{color:var(--pure-white);text-shadow:0 0 5px var(--primary-neon-green);transform:scale(1.01);}
         .music-btn{background-color:var(--primary-neon-green);color:var(--base-black);box-shadow:0 0 10px var(--primary-neon-green);transition:all .3s ease;font-weight:700;}
@@ -58,6 +58,26 @@
         .prize-image-inline{width:80px;height:auto;margin-left:.75rem;vertical-align:middle;border-radius:.25rem;border:1px solid var(--primary-neon-green);box-shadow:0 0 8px rgba(248,231,144,.5);display:inline-block;}
         .calendar-btn{background-color:var(--secondary-blue-violet);color:var(--pure-white);box-shadow:0 0 10px var(--secondary-blue-violet);transition:all .3s ease;font-weight:700;}
         .calendar-btn:hover{box-shadow:0 0 20px var(--secondary-blue-violet),0 0 5px var(--pure-white);transform:scale(1.03);background-color:#8c60ce;}
+        /* Estilo para la nueva alerta */
+        .mandatory-alert {
+            background-color: rgba(255, 65, 54, 0.2); /* Rojo muy suave */
+            border: 2px solid var(--alert-neon-red);
+            color: var(--pure-white);
+            padding: 1.25rem;
+            border-radius: 0.5rem; /* Hacemos el radio un poco más pequeño para que quepa bien */
+            text-align: center;
+            box-shadow: 0 0 15px rgba(255, 65, 54, 0.7);
+        }
+        .mandatory-alert strong {
+            color: var(--alert-neon-red);
+            font-size: 1.5rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        .mandatory-alert p {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body class="text-gray-100">
@@ -85,6 +105,15 @@
                 <a href="https://www.tiktok.com/@diabolos.gaming?_r=1&_t=ZM-914V1OER2tM" target="_blank" class="text-base md:text-lg font-medium text-gray-400 mt-1 interactive-link">
                     Casteado por <span class="font-bold underline">DIABOLOS GAMING</span>
                 </a>
+                
+                <!-- ALERTA DE LECTURA OBLIGATORIA (AHORA SIN ICONO) -->
+                <div class="mandatory-alert mt-4 mb-4">
+                    <strong class="flex items-center justify-center">
+                         ATENCIÓN CAPITANES
+                    </strong>
+                    <p>Es <span class="text-primary-neon-green font-extrabold">OBLIGATORIO</span> leer <span class="underline">todas las secciones</span>. No leer las bases <span class="text-alert-neon-red font-extrabold">NO exime</span> a ningún equipo de las sanciones por incumplimiento.</p>
+                </div>
+
                 <div class="mt-4">
                     <button id="music-toggle-btn" class="music-btn py-2 px-4 rounded-full text-sm font-bold transition-all duration-300">
                         MÚSICA ON
@@ -105,12 +134,11 @@
                     <h2 class="text-3xl font-bold text-primary-neon-green mb-4">¡Bienvenidos al Torneo!</h2>
                     <p class="text-lg text-gray-300 mb-6">Esta es la guía interactiva oficial del STAR TOURNAMENT - LORD DEL FUEGO INFERNAL. Hemos organizado todas las reglas para que puedas encontrar fácilmente lo que necesitas. Revisa los datos clave a continuación y navega por las pestañas para conocer todos los detalles.</p>
                     
-                    <!-- INICIO DEL CAMBIO SOLICITADO -->
                     <div class="text-center mb-8">
-                        <h3 class="2xl font-bold text-primary-neon-green mb-3 uppercase tracking-wider">PREMIO AL CAMPEÓN</h3>
+                        <h3 class="2xl font-bold text-primary-neon-green mb-3 uppercase tracking-wider">PREMIO AL EQUIPO GANADOR</h3>
                         <div class="stat-card border-l-4 mx-auto max-w-sm" style="border-left-color: var(--secondary-blue-violet);">
                             <img src="https://i.imgur.com/uKplLxY.png" alt="Premios al Equipo Ganador" class="w-full h-auto rounded-lg mb-4 border-2 border-primary-neon-green shadow-lg">
-                            <span class="text-lg font-bold text-secondary-blue-violet mb-3 block">El campeón recibirá:</span>
+                            <span class="text-lg font-bold text-secondary-blue-violet mb-3 block">El equipo ganador recibirá:</span>
                             <ul class="list-none text-left space-y-2 text-gray-200 w-full max-w-[80%] mx-auto">
                                 <li class="flex items-start">
                                     <span class="text-primary-neon-green mr-2 mt-1">★</span>
@@ -118,7 +146,7 @@
                                 </li>
                                 <li class="flex items-start">
                                     <span class="text-primary-neon-green mr-2 mt-1">★</span>
-                                    <span><span class="font-bold text-primary-neon-green">Trofeo Digital</span> identificado con el logo de equipo al que representa el campeón y publicado en el Salón de la Fama de nuestro Instagram, etiquetando al jugador que logró la victoria.</span>
+                                    <span><span class="font-bold text-primary-neon-green">Trofeo Digital</span> identificado con el equipo ganador y publicado en el Salón de la Fama de nuestro Instagram, etiquetando a los jugadores que lograron la victoria.</span>
                                 </li>
                             </ul>
                         </div>
@@ -129,7 +157,6 @@
                             <img src="https://i.imgur.com/zkSyi27.png" alt="Trofeo Icono" class="w-5 h-5 ml-2">
                         </a>
                     </div>
-                    <!-- FIN DEL CAMBIO SOLICITADO -->
                     
                     <div class="mb-10 p-6 rounded-lg shadow-2xl" style="background-color: var(--translucent-black-70);">
                         <h3 class="2xl font-bold text-primary-neon-green mb-4 text-center" style="text-shadow: 0 0 5px var(--primary-neon-green);">CRONOGRAMA OFICIAL DEL TORNEO</h3>
