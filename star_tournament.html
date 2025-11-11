@@ -111,7 +111,7 @@
                     <strong class="flex items-center justify-center">
                          ATENCIÓN CAPITANES
                     </strong>
-                    <p>Es <span class="text-primary-neon-green font-extrabold">OBLIGATORIO</span> leer <span class="underline">todas las secciones</span>. No leer las bases <span class="text-alert-neon-red font-extrabold">NO exime</span> a ningún equipo de las sanciones por incumplimiento.</p>
+                    <p>Es <span class="font-extrabold text-primary-neon-green">OBLIGATORIO</span> leer <span class="underline">todas las secciones</span>. No leer las bases <span class="font-extrabold text-alert-neon-red">NO exime</span> a ningún equipo de las sanciones por incumplimiento.</p>
                 </div>
 
                 <div class="mt-4">
@@ -166,10 +166,10 @@
                                 <span class="block text-xl font-bold text-secondary-blue-violet mb-3">8:00 PM Vzla</span>
                                 <p class="text-gray-200 font-semibold">Rondas a Jugar:</p>
                                 <ul class="list-none text-base text-gray-300 mt-1">
-                                    <li><span class="font-bold">Primera Ronda</span> (16 Participantes)</li>
-                                    <li><span class="font-bold">Cuartos de Final</span> (8 Participantes)</li>
-                                    <li><span class="font-bold">Semifinal</span> (4 Participantes)</li>
-                                    <li><span class="font-bold">Gran Final</span> (2 Participantes)</li>
+                                    <li><span class="font-bold">Primera Ronda</span> (<span class="font-bold text-primary-neon-green">Bo1</span> - 16 Participantes)</li>
+                                    <li><span class="font-bold">Cuartos de Final</span> (<span class="font-bold text-primary-neon-green">Bo1</span> - 8 Participantes)</li>
+                                    <li><span class="font-bold">Semifinal</span> (<span class="font-bold text-primary-neon-green">Bo1</span> - 4 Participantes)</li>
+                                    <li><span class="font-bold">Gran Final</span> (<span class="font-bold text-secondary-blue-violet">Bo3</span> - 2 Participantes)</li>
                                 </ul>
                                 <a id="calendar-link" href="#" target="_blank" class="mt-6 inline-flex items-center justify-center calendar-btn py-3 px-6 rounded-full text-base uppercase">
                                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h.01M7 14h.01M17 14h.01M12 14h.01M7 17h.01M12 17h.01M17 17h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -179,7 +179,7 @@
                         </div>
                     </div>
                     <h3 class="2xl font-bold text-primary-neon-green mb-4">Progresión del Torneo</h3>
-                    <p class="text-gray-300 mb-4">El torneo se desarrollará en un único día con formato de eliminación simple (Bo1). La gráfica a continuación muestra cómo avanzarán los 16 participantes hasta encontrar al campeón.</p>
+                    <p class="text-gray-300 mb-4">El torneo se desarrollará en un único día con formato de eliminación simple (Bo1, excepto la Gran Final que es Bo3). La gráfica a continuación muestra cómo avanzarán los 16 participantes hasta encontrar al campeón.</p>
                     <div class="chart-container w-full max-w-2xl mx-auto h-80 md:h-96 relative">
                         <canvas id="bracketChart"></canvas>
                     </div>
@@ -313,6 +313,13 @@
                                         <p class="text-gray-400">Si un jugador se le cae la conexión o se desconecta, el <span class="font-bold text-primary-neon-green">resultado final de la partida</span> es lo que determinará de quién fué la victoria. No se reiniciará la partida por problemas de conexión.</p>
                                     </div>
                                 </li>
+                                <li class="flex items-start gap-3">
+                                    <span class="text-secondary-blue-violet font-bold text-xl">►</span>
+                                    <div>
+                                        <h4 class="font-semibold text-lg">Partidas Bo3 (Gran Final)</h4>
+                                        <p class="text-gray-400">Para la Gran Final, al ser al <span class="font-bold text-primary-neon-green">Mejor de 3 (Bo3)</span>, se jugarán hasta 3 partidas. Los jugadores deben reportar el resultado final de la serie (2-0, 2-1) y no de partidas individuales.</p>
+                                    </div>
+                                </li>
                             </ul>
                         </div>
                         <div>
@@ -322,7 +329,7 @@
                                     <span class="text-secondary-blue-violet font-bold text-xl">►</span>
                                     <div>
                                         <h4 class="font-semibold text-lg">Reporte de Resultado</h4>
-                                        <p class="text-gray-400 mb-4">El ganador deberá tomar un <span class="font-bold">capture de pantalla</span> del resultado final y enviarlo a la organización ingresando en el siguiente enlace.</p>
+                                        <p class="text-gray-400 mb-4">El ganador deberá tomar un <span class="font-bold">capture de pantalla</span> del resultado final y enviarlo a la organización ingresando en el siguiente enlace. Para el <span class="font-bold text-secondary-blue-violet">Bo3</span>, se debe capturar el resultado final de la serie.</p>
                                         <a href="https://docs.google.com/forms/d/e/1FAIpQLSdh9hj1So9SFlPAI45ZMM9_I-WBsOreGFBGwRtstf3vzjcooA/viewform?usp=header" target="_blank" id="result-upload-btn" class="inline-block px-6 py-2 text-md font-bold uppercase rounded transition-all duration-300 transform hover:scale-105 shadow-md mt-2"
                                             style="background-color: var(--secondary-blue-violet); box-shadow: 0 0 10px var(--secondary-blue-violet); color: var(--base-black);">
                                             CARGA LOS RESULTADOS DE TU PARTIDA AQUÍ
@@ -408,9 +415,9 @@
             const year=new Date().getFullYear();
             const dateStr=`${year}1115`;
             const startTime='200000';
-            const endTime='220000';
-            const title=encodeURIComponent('STAR TOURNAMENT - Lord del Fuego Infernal');
-            const details=encodeURIComponent('Torneo de Mobile Legends (TNML) - Rondas de Eliminación. ¡Asegúrate de estar listo a tiempo!');
+            const endTime='230000'; // Ajustamos la hora de fin para el Bo3
+            const title=encodeURIComponent('STAR TOURNAMENT - Lord del Fuego Infernal (¡Final Bo3!)');
+            const details=encodeURIComponent('Torneo de Mobile Legends (TNML) - Rondas de Eliminación. ¡Asegúrate de estar listo a tiempo! Nota: La Gran Final es Bo3.');
             const location=encodeURIComponent('Online - Servidor de Mobile Legends Bang Bang');
             return `https://www.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&location=${location}&dates=${dateStr}T${startTime}/${dateStr}T${endTime}&ctz=America/Caracas`;
         }
@@ -447,7 +454,7 @@
                 new Chart(ctx,{
                     type:'bar',
                     data:{
-                        labels:['Primera Ronda','Cuartos de Final','Semifinal','Gran Final','Campeón'],
+                        labels:['Primera Ronda (Bo1)','Cuartos (Bo1)','Semifinal (Bo1)','Gran Final (Bo3)','Campeón'],
                         datasets:[{
                             label:'Participantes Restantes',
                             data:[16,8,4,2,1],
