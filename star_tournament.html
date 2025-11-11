@@ -98,6 +98,11 @@
             margin-bottom: 0.5rem;
             color: var(--primary-neon-green);
         }
+        .grave-offense {
+            background-color: rgba(255, 65, 54, 0.3); /* Neon Red + Transparencia */
+            border: 2px solid var(--alert-neon-red);
+            box-shadow: 0 0 10px var(--alert-neon-red);
+        }
     </style>
 </head>
 <body class="text-gray-100">
@@ -395,6 +400,18 @@
                             <h3 class="text-xl font-bold text-primary-neon-green mb-2">✅ NORMA GENERAL</h3>
                             <p class="text-gray-400"><span class="font-bold">Walk Over (W.O.):</span> Si un jugador no está listo en la sala tras <span class="font-bold">10 minutos de tolerancia</span> de la hora oficial, el rival puede denunciar W.O. y dar por ganador al jugador que anuncia la falta. La <span class="font-bold text-secondary-blue-violet">impuntualidad</span> se considera una falta grave para la gestión de nuestros torneos, ya que dificulta el correcto desarrollo de los mismos.</p>
                         </div>
+                        
+                        <!-- NUEVAS REGLAS DE PROHIBICIÓN GRAVE -->
+                        <div class="stat-card grave-offense items-start p-4">
+                            <h3 class="text-xl font-bold text-alert-neon-red mb-2">⛔️ FALTA MUY GRAVE</h3>
+                            <p class="text-gray-400"><span class="font-bold">Discriminación/Xenofobia:</span> Actos de discriminación, xenofobia, racismo o cualquier forma de odio. El rival que documente la falta puede solicitar <span class="font-bold text-primary-neon-green">baneo permanente</span>.</p>
+                        </div>
+                        <div class="stat-card grave-offense items-start p-4">
+                            <h3 class="text-xl font-bold text-alert-neon-red mb-2">⛔️ FALTA GRAVE</h3>
+                            <p class="text-gray-400"><span class="font-bold">Irrespeto al Staff:</span> Maltrato, irrespeto, difamación o cualquier forma de agresión verbal dirigida a los miembros de la Organización TNML.</p>
+                        </div>
+                        <!-- FIN NUEVAS REGLAS -->
+
                         <div class="stat-card border-l-4 border-gray-400 items-start p-4">
                             <h3 class="text-xl font-bold text-gray-300 mb-2">🚫 PROHIBIDO</h3>
                             <p class="text-gray-400"><span class="font-bold">Suplantación de Identidad:</span> Jugar en la cuenta de otro jugador o con un Nickname no registrado.</p>
@@ -438,7 +455,7 @@
                         </div>
                         <div class="bg-gray-900 p-6 rounded-lg border border-gray-700">
                             <h3 class="text-2xl font-semibold text-primary-neon-green mb-3">Sanciones por Faltas Graves  </h3>
-                            <p class="text-gray-300 mb-3">Cualquier participante que cometa las faltas graves (trampas, suplantación, hacks) recibirá:</p>
+                            <p class="text-gray-300 mb-3">Cualquier participante que cometa las faltas graves (trampas, suplantación, hacks, o discriminación) recibirá:</p>
                             <ul class="list-disc list-inside space-y-2 font-bold" style="color: var(--alert-neon-red);">
                                 <li>Descalificación Inmediata del torneo.</li>
                                 <li>Baneo Permanente de la organización TNML (participante y escuadrón asociado).</li>
